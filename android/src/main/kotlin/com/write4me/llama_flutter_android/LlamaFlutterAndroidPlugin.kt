@@ -1,12 +1,6 @@
 package com.write4me.llama_flutter_android
 
-import android.                )
-
-                currentModelPath = config.modelPath
-                isModelLoaded.set(true)
-                withContext(Dispatchers.Main) {
-                    callback(Result.success(Unit))
-                }t.Context
+import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -65,6 +59,7 @@ class LlamaFlutterAndroidPlugin : FlutterPlugin, LlamaHostApi {
                     }
                 }
 
+                currentModelPath = config.modelPath
                 isModelLoaded.set(true)
                 withContext(Dispatchers.Main) {
                     callback(Result.success(Unit))
@@ -168,45 +163,74 @@ class LlamaFlutterAndroidPlugin : FlutterPlugin, LlamaHostApi {
         }
     }
 
-    override fun isModelLoaded(): Boolean {
-        return isModelLoaded.get()
-    }
-
     override fun generateChat(request: ChatRequest, callback: (Result<Unit>) -> Unit) {
         if (!isModelLoaded.get()) {
             callback(Result.failure(IllegalStateException("Model not loaded")))
             return
         }
 
-        // Convert ChatMessage list to Kotlin ChatMessage list
-        val messages = request.messages.map { msg ->
-            com.write4me.llama_flutter_android.ChatMessage(
-                role = msg.role,
-                content = msg.content
-            )
+        isStopping.set(false)
+        generationJob = scope.launch {
+            try {
+                // Format the chat messages using the template manager
+                val formattedPrompt = ChatTemplateManager.formatMessages(
+                    request.messages.map { msg -> TemplateChatMessage(msg.role, msg.content) },
+                    request.template,
+                    currentModelPath
+                )
+
+                nativeGenerate(
+                    formattedPrompt,
+                    request.maxTokens.toLong(),
+                    request.temperature.toDouble(),
+                    request.topP.toDouble(),
+                    request.topK.toLong()
+                ) { token ->
+                    if (!isStopping.get()) {
+                        scope.launch {
+                            withContext(Dispatchers.Main) {
+                                flutterApi.onToken(token) { result ->
+                                    // Handle result if needed
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (!isStopping.get()) {
+                    scope.launch {
+                        withContext(Dispatchers.Main) {
+                            flutterApi.onDone { result ->
+                                // Handle result if needed
+                            }
+                        }
+                    }
+                }
+
+                withContext(Dispatchers.Main) {
+                    callback(Result.success(Unit))
+                }
+            } catch (e: Exception) {
+                if (!isStopping.get()) {
+                    scope.launch {
+                        withContext(Dispatchers.Main) {
+                            flutterApi.onError(e.message ?: "Generation failed") { result ->
+                                // Handle result if needed
+                            }
+                            callback(Result.failure(e))
+                        }
+                    }
+                }
+            }
         }
-
-        // Format using chat template
-        val formattedPrompt = ChatTemplateManager.formatMessages(
-            messages = messages,
-            templateName = request.template,
-            modelPath = currentModelPath
-        )
-
-        // Use existing generate method with formatted prompt
-        val generateRequest = GenerateRequest(
-            prompt = formattedPrompt,
-            maxTokens = request.maxTokens,
-            temperature = request.temperature,
-            topP = request.topP,
-            topK = request.topK
-        )
-
-        generate(generateRequest, callback)
     }
 
     override fun getSupportedTemplates(): List<String> {
         return ChatTemplateManager.getSupportedTemplates()
+    }
+
+    override fun isModelLoaded(): Boolean {
+        return isModelLoaded.get()
     }
 
     // Native methods

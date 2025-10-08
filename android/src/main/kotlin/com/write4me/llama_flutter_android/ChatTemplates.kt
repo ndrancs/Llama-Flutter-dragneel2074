@@ -1,9 +1,10 @@
 package com.write4me.llama_flutter_android
 
 /**
- * Chat message with role and content
+ * Internal chat message for template formatting
+ * (Separate from Pigeon-generated ChatMessage to avoid conflicts)
  */
-data class ChatMessage(
+data class TemplateChatMessage(
     val role: String, // "system", "user", or "assistant"
     val content: String
 )
@@ -12,33 +13,33 @@ data class ChatMessage(
  * Interface for chat template formatters
  */
 interface ChatTemplate {
-    fun format(messages: List<ChatMessage>): String
+    fun format(messages: List<TemplateChatMessage>): String
     val name: String
 }
 
 /**
  * ChatML format used by Qwen, Llama-3, and others
  * Format:
- * <|im_start|>system
- * {system_message}<|im_end|>
- * <|im_start|>user
- * {user_message}<|im_end|>
- * <|im_start|>assistant
- * {assistant_message}<|im_end|>
+ * 〔system
+ * {system_message}〕
+ * 〔user
+ * {user_message}〕
+ * 〔assistant
+ * {assistant_message}〕
  */
 class ChatMLTemplate : ChatTemplate {
     override val name = "chatml"
     
-    override fun format(messages: List<ChatMessage>): String {
+    override fun format(messages: List<TemplateChatMessage>): String {
         val builder = StringBuilder()
         
         for (message in messages) {
-            builder.append("<|im_start|>${message.role}\n")
-            builder.append("${message.content}<|im_end|>\n")
+            builder.append("〔${message.role}\\n")
+            builder.append("${message.content}〕\\n")
         }
         
         // Add the final assistant turn start
-        builder.append("<|im_start|>assistant\n")
+        builder.append("〔assistant\\n")
         
         return builder.toString()
     }
@@ -56,7 +57,7 @@ class ChatMLTemplate : ChatTemplate {
 class Llama2Template : ChatTemplate {
     override val name = "llama2"
     
-    override fun format(messages: List<ChatMessage>): String {
+    override fun format(messages: List<TemplateChatMessage>): String {
         val builder = StringBuilder()
         var isFirstUser = true
         var hasSystem = false
@@ -65,9 +66,9 @@ class Llama2Template : ChatTemplate {
             when (message.role) {
                 "system" -> {
                     if (isFirstUser) {
-                        builder.append("[INST] <<SYS>>\n")
-                        builder.append("${message.content}\n")
-                        builder.append("<</SYS>>\n\n")
+                        builder.append("[INST] <<SYS>>\\n")
+                        builder.append("${message.content}\\n")
+                        builder.append("<</SYS>>\\n\\n")
                         hasSystem = true
                     }
                 }
@@ -104,28 +105,28 @@ class Llama2Template : ChatTemplate {
 class AlpacaTemplate : ChatTemplate {
     override val name = "alpaca"
     
-    override fun format(messages: List<ChatMessage>): String {
+    override fun format(messages: List<TemplateChatMessage>): String {
         val builder = StringBuilder()
         val systemMessage = messages.firstOrNull { it.role == "system" }?.content
             ?: "Below is an instruction that describes a task. Write a response that appropriately completes the request."
         
-        builder.append("$systemMessage\n\n")
+        builder.append("$systemMessage\\n\\n")
         
         for (message in messages) {
             when (message.role) {
                 "user" -> {
-                    builder.append("### Instruction:\n")
-                    builder.append("${message.content}\n\n")
+                    builder.append("### Instruction:\\n")
+                    builder.append("${message.content}\\n\\n")
                 }
                 "assistant" -> {
-                    builder.append("### Response:\n")
-                    builder.append("${message.content}\n\n")
+                    builder.append("### Response:\\n")
+                    builder.append("${message.content}\\n\\n")
                 }
             }
         }
         
         // Add final response prompt
-        builder.append("### Response:\n")
+        builder.append("### Response:\\n")
         
         return builder.toString()
     }
@@ -142,20 +143,20 @@ class AlpacaTemplate : ChatTemplate {
 class VicunaTemplate : ChatTemplate {
     override val name = "vicuna"
     
-    override fun format(messages: List<ChatMessage>): String {
+    override fun format(messages: List<TemplateChatMessage>): String {
         val builder = StringBuilder()
         val systemMessage = messages.firstOrNull { it.role == "system" }?.content
             ?: "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions."
         
-        builder.append("$systemMessage\n\n")
+        builder.append("$systemMessage\\n\\n")
         
         for (message in messages) {
             when (message.role) {
                 "user" -> {
-                    builder.append("USER: ${message.content}\n")
+                    builder.append("USER: ${message.content}\\n")
                 }
                 "assistant" -> {
-                    builder.append("ASSISTANT: ${message.content}\n")
+                    builder.append("ASSISTANT: ${message.content}\\n")
                 }
             }
         }
@@ -173,24 +174,24 @@ class VicunaTemplate : ChatTemplate {
 class PhiTemplate : ChatTemplate {
     override val name = "phi"
     
-    override fun format(messages: List<ChatMessage>): String {
+    override fun format(messages: List<TemplateChatMessage>): String {
         val builder = StringBuilder()
         
         for (message in messages) {
             when (message.role) {
                 "system" -> {
-                    builder.append("<|system|>\n${message.content}<|end|>\n")
+                    builder.append("<|system|>\\n${message.content}<|end|>\\n")
                 }
                 "user" -> {
-                    builder.append("<|user|>\n${message.content}<|end|>\n")
+                    builder.append("<|user|>\\n${message.content}<|end|>\\n")
                 }
                 "assistant" -> {
-                    builder.append("<|assistant|>\n${message.content}<|end|>\n")
+                    builder.append("<|assistant|>\\n${message.content}<|end|>\\n")
                 }
             }
         }
         
-        builder.append("<|assistant|>\n")
+        builder.append("<|assistant|>\\n")
         
         return builder.toString()
     }
@@ -202,21 +203,21 @@ class PhiTemplate : ChatTemplate {
 class GemmaTemplate : ChatTemplate {
     override val name = "gemma"
     
-    override fun format(messages: List<ChatMessage>): String {
+    override fun format(messages: List<TemplateChatMessage>): String {
         val builder = StringBuilder()
         
         for (message in messages) {
             when (message.role) {
                 "user" -> {
-                    builder.append("<start_of_turn>user\n${message.content}<end_of_turn>\n")
+                    builder.append("<start_of_turn>user\\n${message.content}<end_of_turn>\\n")
                 }
                 "assistant" -> {
-                    builder.append("<start_of_turn>model\n${message.content}<end_of_turn>\n")
+                    builder.append("<start_of_turn>model\\n${message.content}<end_of_turn>\\n")
                 }
             }
         }
         
-        builder.append("<start_of_turn>model\n")
+        builder.append("<start_of_turn>model\\n")
         
         return builder.toString()
     }
@@ -267,7 +268,7 @@ object ChatTemplateManager {
      * Format messages using specified or auto-detected template
      */
     fun formatMessages(
-        messages: List<ChatMessage>,
+        messages: List<TemplateChatMessage>,
         templateName: String? = null,
         modelPath: String? = null
     ): String {
