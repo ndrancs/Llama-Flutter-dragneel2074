@@ -182,6 +182,19 @@ await controller.stop();
 
 \\\
 
+## 📚 Documentation
+
+Comprehensive documentation is available in the [`/docs`](docs/) directory:
+
+- **[Quick Start Guide](docs/guides/QUICK_START.md)** - Get started quickly
+- **[Features Guide](docs/guides/FEATURES.md)** - Detailed feature overview
+- **[Parameters Guide](docs/guides/PARAMETERS_GUIDE.md)** - Configure inference parameters
+- **[Chat Templates](docs/guides/CHAT_TEMPLATES.md)** - Using chat templates
+- **[Architecture](docs/development/ARCHITECTURE.md)** - System design
+- **[Project Status](docs/development/PROJECT_STATUS.md)** - Current status
+
+See the [documentation index](docs/README.md) for the complete list.
+
 ## Contributing
 
 Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details.
@@ -198,6 +211,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Support
 
--  [Documentation](https://github.com/dragneel2074/llama_flutter_android/wiki)
--  [Issue Tracker](https://github.com/dragneel2074/llama_flutter_android/issues)
--  [Discussions](https://github.com/dragneel2074/llama_flutter_android/discussions)
+- 📖 [Documentation](docs/)
+- 🐛 [Issue Tracker](https://github.com/dragneel2074/llama_flutter_android/issues)
+- 💬 [Discussions](https://github.com/dragneel2074/llama_flutter_android/discussions)

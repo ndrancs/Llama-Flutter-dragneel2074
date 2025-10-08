@@ -20,12 +20,11 @@ interface ChatTemplate {
 /**
  * ChatML format used by Qwen, Llama-3, and others
  * Format:
- * 〔system
- * {system_message}〕
- * 〔user
- * {user_message}〕
- * 〔assistant
- * {assistant_message}〕
+ * <s>{role}
+ * {content}</s>
+ * Or using standard brackets:
+ * [{role}
+ * {content}]
  */
 class ChatMLTemplate : ChatTemplate {
     override val name = "chatml"
@@ -34,12 +33,12 @@ class ChatMLTemplate : ChatTemplate {
         val builder = StringBuilder()
         
         for (message in messages) {
-            builder.append("〔${message.role}\\n")
-            builder.append("${message.content}〕\\n")
+            builder.append("[${message.role}\\n")
+            builder.append("${message.content}]\\n")
         }
         
         // Add the final assistant turn start
-        builder.append("〔assistant\\n")
+        builder.append("[assistant\\n")
         
         return builder.toString()
     }

@@ -234,6 +234,13 @@ Java_com_write4me_llama_1flutter_1android_LlamaFlutterAndroidPlugin_nativeGenera
         return;
     }
 
+    // Clear memory from previous generation to start fresh
+    llama_memory_t mem = llama_get_memory(g_ctx);
+    if (mem) {
+        llama_memory_seq_rm(mem, 0, -1, -1);
+        LOGI("Cleared memory for new generation");
+    }
+
     const char* prompt_str = env->GetStringUTFChars(prompt, nullptr);
     g_stop_flag = false;
     
@@ -241,8 +248,13 @@ Java_com_write4me_llama_1flutter_1android_LlamaFlutterAndroidPlugin_nativeGenera
     LOGI("Tokenizing prompt: '%s' (length: %d)", prompt_str, prompt_len);
     LOGI("Vocab pointer: %p, Model pointer: %p", (void*)g_vocab, (void*)g_model);
 
+    // Sanitize the UTF-8 string before tokenizing
+    std::string sanitized_prompt = sanitizeUTF8(prompt_str, prompt_len);
+    const char* sanitized_cstr = sanitized_prompt.c_str();
+    const int sanitized_len = sanitized_prompt.length();
+    
     // Tokenize prompt - when tokens is NULL, llama_tokenize returns NEGATIVE count
-    const int n_prompt_tokens = -llama_tokenize(g_vocab, prompt_str, prompt_len, nullptr, 0, true, true);
+    const int n_prompt_tokens = -llama_tokenize(g_vocab, sanitized_cstr, sanitized_len, nullptr, 0, true, true);
     LOGI("Token count: %d", n_prompt_tokens);
     
     if (n_prompt_tokens <= 0) {
@@ -254,7 +266,7 @@ Java_com_write4me_llama_1flutter_1android_LlamaFlutterAndroidPlugin_nativeGenera
         return;
     }
     std::vector<llama_token> tokens(n_prompt_tokens);
-    const int actual_tokens = llama_tokenize(g_vocab, prompt_str, strlen(prompt_str), tokens.data(), tokens.size(), true, true);
+    const int actual_tokens = llama_tokenize(g_vocab, sanitized_cstr, sanitized_len, tokens.data(), tokens.size(), true, true);
     if (actual_tokens < 0) {
         env->ReleaseStringUTFChars(prompt, prompt_str);
         jclass exception = env->FindClass("java/lang/RuntimeException");
@@ -271,6 +283,8 @@ Java_com_write4me_llama_1flutter_1android_LlamaFlutterAndroidPlugin_nativeGenera
         batch.pos[i] = i;
         batch.n_seq_id[i] = 1;
         batch.seq_id[i][0] = 0;
+        // For the prompt decoding phase, we want logits for all tokens to correctly
+        // prepare the context, but only need logits for the last token for sampling
         batch.logits[i] = (i == tokens.size() - 1); // Only compute logits for last token
     }
     batch.n_tokens = tokens.size();
@@ -406,6 +420,12 @@ Java_com_write4me_llama_1flutter_1android_LlamaFlutterAndroidPlugin_nativeGenera
         }
     }
 
+    // Clear the memory for this sequence to prepare for next generation
+    llama_memory_t mem_end = llama_get_memory(g_ctx);
+    if (mem_end) {
+        llama_memory_seq_rm(mem_end, 0, -1, -1);
+    }
+    
     llama_batch_free(batch);
     env->DeleteLocalRef(callbackClass);
 }
@@ -414,6 +434,13 @@ extern "C" JNIEXPORT void JNICALL
 Java_com_write4me_llama_1flutter_1android_LlamaFlutterAndroidPlugin_nativeStop(
     JNIEnv* env, jobject thiz) {
     g_stop_flag = true;
+    // If context is available, clear the memory to reset state properly
+    if (g_ctx) {
+        llama_memory_t mem = llama_get_memory(g_ctx);
+        if (mem) {
+            llama_memory_seq_rm(mem, 0, -1, -1);
+        }
+    }
 }
 
 extern "C" JNIEXPORT void JNICALL
