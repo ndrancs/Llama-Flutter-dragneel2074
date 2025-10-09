@@ -16,6 +16,7 @@ static llama_context* g_ctx = nullptr;
 static const llama_vocab* g_vocab = nullptr;
 static llama_sampler* g_sampler = nullptr;
 static std::atomic<bool> g_stop_flag{false};
+static int g_n_past = 0;  // Track the number of tokens already in KV cache
 
 // Helper function to validate UTF-8 strings
 static bool isValidUTF8(const char* str, size_t len) {
@@ -202,6 +203,9 @@ Java_com_write4me_llama_1flutter_1android_LlamaFlutterAndroidPlugin_nativeLoadMo
         env->ThrowNew(exception, "Failed to get vocab from model");
         return;
     }
+    
+    // Reset KV cache position counter for new model
+    g_n_past = 0;
 
     // Report progress completion
     if (progress_callback) {
@@ -238,12 +242,6 @@ Java_com_write4me_llama_1flutter_1android_LlamaFlutterAndroidPlugin_nativeGenera
     }
 
     // Clear memory from previous generation to start fresh
-    llama_memory_t mem = llama_get_memory(g_ctx);
-    if (mem) {
-        llama_memory_seq_rm(mem, 0, -1, -1);
-        LOGI("Cleared memory for new generation");
-    }
-
     const char* prompt_str = env->GetStringUTFChars(prompt, nullptr);
     g_stop_flag = false;
     
@@ -279,28 +277,42 @@ Java_com_write4me_llama_1flutter_1android_LlamaFlutterAndroidPlugin_nativeGenera
     tokens.resize(actual_tokens);
     env->ReleaseStringUTFChars(prompt, prompt_str);
 
-    // Create batch with memory optimization for low-end devices
-    // Limit batch size to reduce memory usage during processing
-    const int max_batch_tokens = 512;  // Memory-efficient batch size
-    const int actual_batch_size = std::min((int)tokens.size(), max_batch_tokens);
-    llama_batch batch = llama_batch_init(actual_batch_size, 0, 1);
-    for (size_t i = 0; i < tokens.size() && i < actual_batch_size; i++) {
-        batch.token[i] = tokens[i];
-        batch.pos[i] = i;
-        batch.n_seq_id[i] = 1;
-        batch.seq_id[i][0] = 0;
-        // For the prompt decoding phase, we want logits for all tokens to correctly
-        // prepare the context, but only need logits for the last token for sampling
-        batch.logits[i] = (i == tokens.size() - 1); // Only compute logits for last token
-    }
-    batch.n_tokens = actual_batch_size;
+    // Process prompt in batches to handle long inputs
+    const int max_batch_size = 512;
+    int tokens_processed = 0;
+    
+    llama_batch batch = llama_batch_init(max_batch_size, 0, 1);
 
-    if (llama_decode(g_ctx, batch) != 0) {
-        llama_batch_free(batch);
-        jclass exception = env->FindClass("java/lang/RuntimeException");
-        env->ThrowNew(exception, "Failed to decode prompt");
-        return;
+    while (tokens_processed < tokens.size()) {
+        batch.n_tokens = 0;
+        int batch_size = std::min((int)tokens.size() - tokens_processed, max_batch_size);
+
+        for (int i = 0; i < batch_size; i++) {
+            batch.token[batch.n_tokens] = tokens[tokens_processed + i];
+            batch.pos[batch.n_tokens] = g_n_past + tokens_processed + i;
+            batch.n_seq_id[batch.n_tokens] = 1;
+            batch.seq_id[batch.n_tokens][0] = 0;
+            batch.logits[batch.n_tokens] = (tokens_processed + i == tokens.size() - 1);
+            batch.n_tokens++;
+        }
+
+        LOGI("Decoding batch starting at position %d with %d tokens", g_n_past + tokens_processed, batch.n_tokens);
+
+        int decode_result = llama_decode(g_ctx, batch);
+        if (decode_result != 0) {
+            LOGE("❌ DECODE FAILED! Result code: %d", decode_result);
+            llama_batch_free(batch);
+            jclass exception = env->FindClass("java/lang/RuntimeException");
+            env->ThrowNew(exception, "Failed to decode prompt");
+            return;
+        }
+        tokens_processed += batch_size;
     }
+
+    LOGI("✅ Decode successful! Processed %d total tokens", tokens_processed);
+
+    // Update position counter after decoding the whole prompt
+    g_n_past += tokens.size();
 
     // Create sampler chain with all parameters
     if (g_sampler) {
@@ -368,12 +380,16 @@ Java_com_write4me_llama_1flutter_1android_LlamaFlutterAndroidPlugin_nativeGenera
     jmethodID invokeMethod = env->GetMethodID(callbackClass, "invoke", "(Ljava/lang/Object;)Ljava/lang/Object;");
 
     // Generation loop
+    LOGI("Starting generation loop: max_tokens=%lld", max_tokens);
     for (int i = 0; i < max_tokens && !g_stop_flag; i++) {
         // Sample next token
+        LOGI("Sampling token %d, g_n_past=%d", i + 1, g_n_past);
         llama_token new_token_id = llama_sampler_sample(g_sampler, g_ctx, -1);
+        LOGI("Sampled token: %d", new_token_id);
 
-        // Check for EOS
+        // Check for end of generation (EOS/EOD tokens)
         if (llama_vocab_is_eog(g_vocab, new_token_id)) {
+            LOGI("EOS token detected, ending generation.");
             break;
         }
 
@@ -388,11 +404,11 @@ Java_com_write4me_llama_1flutter_1android_LlamaFlutterAndroidPlugin_nativeGenera
             
             // Simple UTF-8 validation - replace invalid sequences with a placeholder
             bool valid_utf8 = true;
-            for (int i = 0; i < length; i++) {
-                unsigned char c = static_cast<unsigned char>(buffer[i]);
+            for (int j = 0; j < length; j++) {
+                unsigned char c = static_cast<unsigned char>(buffer[j]);
                 // Check for invalid continuation bytes
                 if ((c & 0xC0) == 0x80) {
-                    if (i == 0 || (static_cast<unsigned char>(buffer[i-1]) & 0xC0) != 0xC0) {
+                    if (j == 0 || (static_cast<unsigned char>(buffer[j-1]) & 0xC0) != 0xC0) {
                         valid_utf8 = false;
                         break;
                     }
@@ -415,20 +431,25 @@ Java_com_write4me_llama_1flutter_1android_LlamaFlutterAndroidPlugin_nativeGenera
         // Prepare next batch
         batch.n_tokens = 0;
         batch.token[batch.n_tokens] = new_token_id;
-        batch.pos[batch.n_tokens] = tokens.size() + i;
+        batch.pos[batch.n_tokens] = g_n_past;  // Use the tracked position
         batch.n_seq_id[batch.n_tokens] = 1;
         batch.seq_id[batch.n_tokens][0] = 0;
         batch.logits[batch.n_tokens] = true;
         batch.n_tokens++;
 
         if (llama_decode(g_ctx, batch) != 0) {
+            LOGE("Failed to decode after sampling token %d", i + 1);
             break;
         }
+        
+        // Update position counter after each generated token
+        g_n_past++;
     }
+    LOGI("Generation loop finished.");
 
-    // Reset the context to clear KV cache - this is an alternative when specific KV functions aren't available
-    // Since llama_kv_cache_clear might not be available in this version, we'll just continue without explicit clearing
-    // The KV cache will be naturally managed by llama.cpp
+    // After generation completion, ensure the KV cache is properly managed
+    // In some llama.cpp versions, KV cache management may be needed between generations
+    // For chat applications, we want to maintain conversation context
     
     llama_batch_free(batch);
     env->DeleteLocalRef(callbackClass);
@@ -458,6 +479,7 @@ Java_com_write4me_llama_1flutter_1android_LlamaFlutterAndroidPlugin_nativeFreeMo
         g_model = nullptr;
     }
     g_vocab = nullptr;
+    g_n_past = 0;  // Reset position counter
     
     LOGI("Model freed");
 }

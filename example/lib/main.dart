@@ -1,153 +1,816 @@
 import 'package:flutter/material.dart';
-import 'package:llama_flutter_android/llama_flutter_android.dart';
+import 'package:chat_app/services/chat_service.dart';
 
-void main() => runApp(const MyApp());
+// UI Message model for display
+class UIChatMessage {
+  final String text;
+  final bool isUser;
+  final DateTime timestamp;
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
+  UIChatMessage({
+    required this.text,
+    required this.isUser,
+    DateTime? timestamp,
+  }) : timestamp = timestamp ?? DateTime.now();
 }
 
-class _MyAppState extends State<MyApp> {
-  final _llama = LlamaController();
-  final _textController = TextEditingController();
-  final _messages = <String>[];
-  bool _isLoading = false;
-  double _loadProgress = 0.0;
+void main() {
+  runApp(const MyApp());
+}
 
-  @override
-  void initState() {
-    super.initState();
-    _llama.loadProgress.listen((progress) {
-      setState(() => _loadProgress = progress);
-    });
-  }
-
-  Future<void> _loadModel() async {
-    setState(() => _isLoading = true);
-    try {
-      // Replace with your model path
-      await _llama.loadModel(
-        modelPath: '/sdcard/Download/model.gguf',
-        threads: 4,
-        contextSize: 2048,
-      );
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Model loaded!')),
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
-        );
-      }
-    } finally {
-      setState(() => _isLoading = false);
-    }
-  }
-
-  Future<void> _generate() async {
-    final prompt = _textController.text.trim();
-    if (prompt.isEmpty) return;
-
-    setState(() {
-      _messages.add('You: $prompt');
-      _messages.add('AI: ');
-    });
-
-    try {
-      final stream = _llama.generate(
-        prompt: prompt,
-        maxTokens: 256,
-        temperature: 0.7,
-      );
-
-      await for (final token in stream) {
-        setState(() {
-          _messages[_messages.length - 1] += token;
-        });
-      }
-    } catch (e) {
-      setState(() {
-        _messages[_messages.length - 1] += '\n[Error: $e]';
-      });
-    }
-
-    _textController.clear();
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Llama Flutter Android')),
-        body: Column(
+      title: 'Qwen Chat App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: const ChatScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class ChatScreen extends StatefulWidget {
+  const ChatScreen({super.key});
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final ChatService _chatService = ChatService();
+  final TextEditingController _textController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  final List<UIChatMessage> _messages = [];
+  String _currentAIResponse = '';
+  bool _isLoading = false;
+  double _downloadProgress = 0.0;
+  String _statusMessage = 'Initializing...';
+  bool _isModelLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeApp();
+  }
+
+  Future<void> _initializeApp() async {
+    print('[UI] ===== Initializing app =====');
+    
+    setState(() {
+      _statusMessage = 'Checking for existing model...';
+    });
+
+    print('[UI] Calling chatService.initialize()...');
+    final modelExists = await _chatService.initialize();
+    print('[UI] Initialize result: modelExists = $modelExists');
+
+    if (modelExists) {
+      print('[UI] Model exists, ready to load');
+      setState(() {
+        _statusMessage = 'Model found. Ready to load.';
+      });
+      _loadModel();
+    } else {
+      print('[UI] No valid model found');
+      setState(() {
+        _statusMessage = 'No valid model found. Tap "Load from Local" to select your downloaded model file.';
+      });
+    }
+
+    // Listen to message stream
+    print('[UI] Setting up message stream listener');
+    _chatService.messageStream.listen((token) {
+      setState(() {
+        if (token.startsWith('User:')) {
+          // Extract user message
+          final userMsg = token.replaceFirst('User:', '').replaceFirst('\nAI:', '').trim();
+          _messages.add(UIChatMessage(text: userMsg, isUser: true));
+          // Start a new AI response
+          _currentAIResponse = '';
+          _messages.add(UIChatMessage(text: '', isUser: false));
+        } else if (token.startsWith('\nError:') || token.startsWith('Error:')) {
+          // Error message
+          if (_messages.isNotEmpty && !_messages.last.isUser) {
+            _messages.removeLast();
+          }
+          _messages.add(UIChatMessage(text: token.trim(), isUser: false));
+          _currentAIResponse = '';
+        } else if (token == '\n') {
+          // End of AI response
+          _currentAIResponse = '';
+        } else {
+          // Accumulate AI response tokens
+          _currentAIResponse += token;
+          if (_messages.isNotEmpty && !_messages.last.isUser) {
+            _messages.last = UIChatMessage(text: _currentAIResponse, isUser: false);
+          }
+        }
+      });
+      _scrollToBottom();
+    });
+    
+    // Listen to generating state changes
+    print('[UI] Setting up generating state listener');
+    _chatService.generatingStateStream.listen((isGenerating) {
+      print('[UI] Generation state changed: $isGenerating');
+      setState(() {
+        // Force UI rebuild when generation state changes
+      });
+    });
+    
+    print('[UI] ===== App initialization complete =====');
+  }
+
+  Future<void> _downloadModel() async {
+    print('[UI] ===== Download model triggered =====');
+    
+    setState(() {
+      _isLoading = true;
+      _statusMessage = 'Starting download...';
+    });
+
+    try {
+      print('[UI] Calling chatService.downloadModel()...');
+      await _chatService.downloadModel(
+        onProgress: (progress) {
+          print('[UI] Download progress: ${progress.toStringAsFixed(1)}%');
+          setState(() {
+            _downloadProgress = progress;
+          });
+        },
+        onStatus: (status) {
+          print('[UI] Download status: $status');
+          setState(() {
+            _statusMessage = status;
+          });
+        },
+      );
+
+      print('[UI] ✓ Download complete, loading model...');
+      // Model downloaded, now load it
+      _loadModel();
+    } catch (e) {
+      print('[UI] ✗✗✗ Download failed: $e');
+      print('[UI] Stack trace: ${StackTrace.current}');
+      setState(() {
+        _statusMessage = 'Download failed: $e';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+      print('[UI] ===== Download model complete =====');
+    }
+  }
+
+  Future<void> _loadFromLocal() async {
+    print('[UI] ===== Load from local triggered =====');
+    
+    setState(() {
+      _isLoading = true;
+      _statusMessage = 'Opening file picker...';
+    });
+
+    try {
+      print('[UI] Calling chatService.pickLocalModel()...');
+      final modelPath = await _chatService.pickLocalModel();
+      print('[UI] pickLocalModel returned: $modelPath');
+      
+      if (modelPath != null) {
+        final fileName = modelPath.split('/').last.split('\\').last;
+        print('[UI] ✓ Model selected: $fileName');
+        print('[UI] Full path: $modelPath');
+        
+        setState(() {
+          _statusMessage = 'Model selected: $fileName';
+        });
+        
+        // Automatically load the selected model
+        print('[UI] Automatically loading the selected model...');
+        await _loadModel();
+      } else {
+        print('[UI] ✗ No model file selected');
+        setState(() {
+          _statusMessage = 'No model file selected';
+        });
+      }
+    } catch (e) {
+      print('[UI] ✗✗✗ Error in _loadFromLocal: $e');
+      print('[UI] Stack trace: ${StackTrace.current}');
+      setState(() {
+        _statusMessage = 'Error selecting model: $e';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+      print('[UI] ===== Load from local complete =====');
+    }
+  }
+
+    Future<void> _loadModel() async {
+    print('[UI] ===== Load model triggered =====');
+    
+    if (_chatService.isLoadingModel) {
+      print('[UI] ⚠ Model is already loading, returning');
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+      _statusMessage = 'Loading model...';
+    });
+    
+    print('[UI] Current model path: ${_chatService.modelPath}');
+
+    try {
+      print('[UI] Calling chatService.loadModel()...');
+      await _chatService.loadModel(
+        onProgress: (progress) {
+          print('[UI] Progress callback: ${progress.toStringAsFixed(1)}%');
+          setState(() {
+            _downloadProgress = progress;
+          });
+        },
+        onStatus: (status) {
+          print('[UI] Status callback: $status');
+          setState(() {
+            _statusMessage = status;
+          });
+        },
+      );
+
+      print('[UI] loadModel completed, checking if model is loaded...');
+      final isLoaded = await _chatService.isModelLoaded();
+      print('[UI] isModelLoaded result: $isLoaded');
+      
+      setState(() {
+        _isModelLoaded = isLoaded;
+        _statusMessage = _isModelLoaded ? 'Model loaded successfully!' : 'Failed to load model';
+      });
+      
+      if (_isModelLoaded) {
+        print('[UI] ✓✓✓ Model loaded successfully! Ready for chat.');
+      } else {
+        print('[UI] ✗ Model failed to load');
+      }
+    } catch (e) {
+      print('[UI] ✗✗✗ Error in _loadModel: $e');
+      print('[UI] Stack trace: ${StackTrace.current}');
+      setState(() {
+        _statusMessage = 'Failed to load model: $e';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+      print('[UI] ===== Load model complete =====');
+    }
+  }
+
+  Future<void> _unloadModel() async {
+    print('[UI] ===== Unload model triggered =====');
+    
+    setState(() {
+      _isLoading = true;
+      _statusMessage = 'Unloading model...';
+    });
+
+    try {
+      print('[UI] Calling chatService.unloadModel()...');
+      await _chatService.unloadModel();
+      
+      setState(() {
+        _isModelLoaded = false;
+        _statusMessage = 'Model unloaded. You can load a new model.';
+      });
+      
+      print('[UI] ✓ Model unloaded successfully');
+    } catch (e) {
+      print('[UI] ✗✗✗ Error unloading model: $e');
+      setState(() {
+        _statusMessage = 'Error unloading model: $e';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+      print('[UI] ===== Unload model complete =====');
+    }
+  }
+
+  void _clearChat() {
+    print('[UI] ===== Clear chat triggered =====');
+    
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Clear Chat'),
+        content: const Text('Are you sure you want to clear the conversation history?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                _messages.clear();
+                _currentAIResponse = '';
+              });
+              _chatService.clearHistory();
+              Navigator.pop(context);
+              print('[UI] ✓ Chat cleared');
+            },
+            child: const Text('Clear', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _stopGeneration() async {
+    print('[UI] ===== Stop generation triggered =====');
+    
+    if (!_chatService.isGenerating) {
+      print('[UI] ⚠ No generation in progress');
+      return;
+    }
+    
+    try {
+      await _chatService.stopGeneration();
+      print('[UI] ✓ Generation stopped successfully');
+      
+      // Force UI rebuild to update button state
+      setState(() {
+        print('[UI] UI state updated after stop');
+      });
+      
+      // Show feedback
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Generation stopped'),
+            duration: Duration(seconds: 2),
+            backgroundColor: Colors.orange,
+          ),
+        );
+      }
+    } catch (e) {
+      print('[UI] ✗ Error stopping generation: $e');
+      setState(() {
+        print('[UI] UI state updated after error');
+      });
+    }
+    
+    print('[UI] ===== Stop generation complete =====');
+  }
+
+  void _sendMessage() async {
+    print('[UI] ===== Send message triggered =====');
+    
+    final text = _textController.text.trim();
+    print('[UI] Message text: "$text"');
+    
+    if (text.isEmpty) {
+      print('[UI] ✗ Message is empty, returning');
+      return;
+    }
+    
+    if (_chatService.isGenerating) {
+      print('[UI] ⚠ Already generating, returning');
+      return;
+    }
+    
+    if (!_isModelLoaded) {
+      print('[UI] ✗ Model not loaded, returning');
+      return;
+    }
+
+    print('[UI] Clearing text field and sending message to chatService...');
+    _textController.clear();
+    _chatService.sendMessage(text);
+    print('[UI] ===== Send message complete =====');
+  }
+
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
           children: [
-            if (_isLoading)
-              LinearProgressIndicator(value: _loadProgress),
-            FutureBuilder<bool>(
-              future: _llama.isModelLoaded(),
-              builder: (context, snapshot) {
-                bool isLoaded = snapshot.data ?? false;
-                if (!isLoaded) {
-                  return ElevatedButton(
-                    onPressed: _loadModel,
-                    child: const Text('Load Model'),
-                  );
-                }
-                return Container(); // Empty container when loaded
-              },
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _messages.length,
-                itemBuilder: (ctx, i) => ListTile(
-                  title: Text(_messages[i]),
-                ),
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(8),
               ),
+              child: const Icon(Icons.chat_bubble, size: 20),
             ),
-            FutureBuilder<bool>(
-              future: _llama.isModelLoaded(),
-              builder: (context, snapshot) {
-                bool isLoaded = snapshot.data ?? false;
-                if (isLoaded) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: _textController,
-                            decoration: const InputDecoration(
-                              hintText: 'Type a message...',
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.send),
-                          onPressed: _generate,
-                        ),
-                      ],
-                    ),
-                  );
-                }
-                return Container(); // Empty container when not loaded
-              },
+            const SizedBox(width: 12),
+            const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Qwen Chat', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                Text('0.6B Model', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w300)),
+              ],
             ),
           ],
         ),
+        backgroundColor: Colors.blue[600],
+        foregroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          if (_messages.isNotEmpty && _isModelLoaded)
+            IconButton(
+              icon: const Icon(Icons.delete_outline),
+              tooltip: 'Clear chat',
+              onPressed: _clearChat,
+            ),
+        ],
       ),
+      body: Column(
+        children: [
+          // Status area
+          if (!_isModelLoaded || _isLoading)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              decoration: BoxDecoration(
+                color: _isModelLoaded ? Colors.green[50] : Colors.orange[50],
+                border: Border(
+                  bottom: BorderSide(color: Colors.grey[200]!),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        _isModelLoaded ? Icons.check_circle : Icons.info_outline,
+                        size: 18,
+                        color: _isModelLoaded ? Colors.green[700] : Colors.orange[700],
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          _statusMessage,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: _isModelLoaded ? Colors.green[900] : Colors.orange[900],
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (_isLoading)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: LinearProgressIndicator(
+                          value: _downloadProgress > 0 ? _downloadProgress / 100 : null,
+                          backgroundColor: Colors.grey[200],
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            _isModelLoaded ? Colors.green : Colors.orange,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          
+          // Action buttons - only show when model not loaded
+          if (!_isModelLoaded)
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  bottom: BorderSide(color: Colors.grey[200]!),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: !_isLoading ? _loadFromLocal : null,
+                          icon: const Icon(Icons.folder_open, size: 18),
+                          label: const Text('Load from Local', style: TextStyle(fontSize: 13)),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: !_chatService.hasModelPath && !_isLoading 
+                              ? _downloadModel 
+                              : null,
+                          icon: const Icon(Icons.download, size: 18),
+                          label: const Text('Download', style: TextStyle(fontSize: 13)),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (_chatService.hasModelPath) ...[
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton.icon(
+                            onPressed: (_chatService.hasModelPath && !_isLoading && !_chatService.isLoadingModel)
+                                ? _loadModel 
+                                : null,
+                            icon: const Icon(Icons.memory, size: 18),
+                            label: const Text('Load into Memory', style: TextStyle(fontSize: 13)),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ],
+              ),
+            )
+          else
+            // Show unload button when model is loaded
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  bottom: BorderSide(color: Colors.grey[200]!),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: _isModelLoaded && !_isLoading ? _unloadModel : null,
+                      icon: const Icon(Icons.exit_to_app, size: 16),
+                      label: const Text('Unload Model', style: TextStyle(fontSize: 12)),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.orange[700],
+                        side: BorderSide(color: Colors.orange[300]!),
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          
+          // Chat messages
+          Expanded(
+            child: _messages.isEmpty
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.chat_bubble_outline, size: 64, color: Colors.grey[300]),
+                        const SizedBox(height: 16),
+                        Text(
+                          'No messages yet',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Start chatting after loading the model!',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[500],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(
+                    color: Colors.grey[50],
+                    child: ListView.builder(
+                      controller: _scrollController,
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      itemCount: _messages.length,
+                      itemBuilder: (context, index) {
+                        return _buildMessageWidget(_messages[index]);
+                      },
+                    ),
+                  ),
+          ),
+          
+          // Input area
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, -2),
+                ),
+              ],
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            child: SafeArea(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: TextField(
+                        controller: _textController,
+                        decoration: InputDecoration(
+                          hintText: _chatService.isGenerating 
+                              ? 'Generating...' 
+                              : 'Type your message...',
+                          hintStyle: TextStyle(color: Colors.grey[500]),
+                          border: InputBorder.none,
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        ),
+                        maxLines: null,
+                        textCapitalization: TextCapitalization.sentences,
+                        enabled: _isModelLoaded && !_chatService.isGenerating,
+                        onSubmitted: _isModelLoaded && !_chatService.isGenerating ? (_) => _sendMessage() : null,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  // Send or Stop button
+                  Container(
+                    decoration: BoxDecoration(
+                      color: _isModelLoaded
+                          ? (_chatService.isGenerating 
+                              ? Colors.red[500] 
+                              : Colors.blue[500])
+                          : Colors.grey[300],
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      onPressed: _isModelLoaded 
+                          ? (_chatService.isGenerating ? _stopGeneration : _sendMessage)
+                          : null,
+                      icon: Icon(_chatService.isGenerating ? Icons.stop_rounded : Icons.send_rounded),
+                      color: Colors.white,
+                      iconSize: 22,
+                      tooltip: _chatService.isGenerating ? 'Stop generation' : 'Send message',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMessageWidget(UIChatMessage message) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+      child: Row(
+        mainAxisAlignment: message.isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (!message.isUser) ...[
+            CircleAvatar(
+              backgroundColor: Colors.purple[100],
+              radius: 18,
+              child: Icon(Icons.smart_toy, size: 20, color: Colors.purple[700]),
+            ),
+            const SizedBox(width: 8),
+          ],
+          Flexible(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: message.isUser ? Colors.blue[500] : Colors.grey[100],
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(20),
+                  topRight: const Radius.circular(20),
+                  bottomLeft: message.isUser ? const Radius.circular(20) : const Radius.circular(4),
+                  bottomRight: message.isUser ? const Radius.circular(4) : const Radius.circular(20),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 5,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: message.text.isEmpty
+                  ? SizedBox(
+                      height: 20,
+                      width: 40,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _buildTypingDot(0),
+                          const SizedBox(width: 4),
+                          _buildTypingDot(1),
+                          const SizedBox(width: 4),
+                          _buildTypingDot(2),
+                        ],
+                      ),
+                    )
+                  : Text(
+                      message.text,
+                      style: TextStyle(
+                        color: message.isUser ? Colors.white : Colors.black87,
+                        fontSize: 15,
+                        height: 1.4,
+                      ),
+                    ),
+            ),
+          ),
+          if (message.isUser) ...[
+            const SizedBox(width: 8),
+            CircleAvatar(
+              backgroundColor: Colors.blue[100],
+              radius: 18,
+              child: Icon(Icons.person, size: 20, color: Colors.blue[700]),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTypingDot(int index) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0.0, end: 1.0),
+      duration: const Duration(milliseconds: 600),
+      builder: (context, value, child) {
+        final delay = index * 0.15;
+        final adjustedValue = (value - delay).clamp(0.0, 1.0);
+        final opacity = (adjustedValue * 2).clamp(0.3, 1.0);
+        
+        return Opacity(
+          opacity: opacity,
+          child: Container(
+            width: 8,
+            height: 8,
+            decoration: BoxDecoration(
+              color: Colors.grey[600],
+              shape: BoxShape.circle,
+            ),
+          ),
+        );
+      },
+      onEnd: () {
+        // Restart animation
+        if (mounted) {
+          setState(() {});
+        }
+      },
     );
   }
 
   @override
   void dispose() {
-    _llama.dispose();
+    _chatService.dispose();
     _textController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 }

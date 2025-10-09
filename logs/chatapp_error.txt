@@ -1,8 +1,422 @@
-  C:\Users\ADMIN\AppData\Local\Android\Sdk\ndk\27.0.12077973\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/Users/ADMIN/AppData/Local/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_SHARED -Dllama_jni_EXPORTS -IC:/Users/ADMIN/Documents/HP/old_ssd/MY_FILES/flutter_projects/llama_flutter_android/android/src/main/cpp/llama.cpp/include -IC:/Users/ADMIN/Documents/HP/old_ssd/MY_FILES/flutter_projects/llama_flutter_android/android/src/main/cpp/llama.cpp/ggml/include -IC:/Users/ADMIN/Documents/HP/old_ssd/MY_FILES/flutter_projects/llama_flutter_android/android/src/main/cpp/llama.cpp/src/../include -IC:/Users/ADMIN/Documents/HP/old_ssd/MY_FILES/flutter_projects/llama_flutter_android/android/src/main/cpp/llama.cpp/ggml/src/../include -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -O3 -fvisibility=hidden -Wl,-z,max-page-size=16384 -O3 -march=armv8-a+crc -fno-limit-debug-info  -fPIC -std=c++17 -MD -MT CMakeFiles/llama_jni.dir/src/main/cpp/jni_wrapper.cpp.o -MF CMakeFiles\llama_jni.dir\src\main\cpp\jni_wrapper.cpp.o.d -o CMakeFiles/llama_jni.dir/src/main/cpp/jni_wrapper.cpp.o -c C:/Users/ADMIN/Documents/HP/old_ssd/MY_FILES/flutter_projects/llama_flutter_android/android/src/main/cpp/jni_wrapper.cpp
-  C:/Users/ADMIN/Documents/HP/old_ssd/MY_FILES/flutter_projects/llama_flutter_android/android/src/main/cpp/jni_wrapper.cpp:183:16: error: no member named 'low_vram' in 'llama_context_params'
-  C:/Users/ADMIN/Documents/HP/old_ssd/MY_FILES/flutter_projects/llama_flutter_android/android/src/main/cpp/jni_wrapper.cpp:433:5: error: use of undeclared identifier 'llama_kv_cache_seq_rm'
-  C:/Users/ADMIN/Documents/HP/old_ssd/MY_FILES/flutter_projects/llama_flutter_android/android/src/main/cpp/jni_wrapper.cpp:445:9: error: use of undeclared identifier 'llama_kv_cache_seq_rm'
-        "C:\\Users\\ADMIN\\Documents\\HP\\old_ssd\\MY_FILES\\flutter_projects\\llama_flutter_android\\android\\.cxx\\Debug\\s2a6w5fg\\arm64-v8a" ^
-    from C:\Users\ADMIN\Documents\HP\old_ssd\MY_FILES\flutter_projects\llama_flutter_android\android
-
-CHAT
+I/flutter (27873): [UI] ===== Load from local triggered =====
+I/flutter (27873): [UI] Calling chatService.pickLocalModel()...
+I/flutter (27873): [ModelDownload] Starting file picker...
+I/flutter (27873): [ModelDownload] Opening file picker dialog with FileType.any
+D/FilePickerDelegate(27873): Selected type */*
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleWindowFocusChanged: 0 0 call from android.view.ViewRootImpl.-$$Nest$mhandleWindowFocusChanged:0
+I/ImeFocusController(27873): onPreWindowFocus: skipped, hasWindowFocus=false mHasImeFocus=true
+I/ImeFocusController(27873): onPostWindowFocus: skipped, hasWindowFocus=false mHasImeFocus=true
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleAppVisibility mAppVisible = true visible = false
+I/SurfaceView@8799e03(27873): onWindowVisibilityChanged(8) false io.flutter.embedding.android.FlutterSurfaceView{8799e03 V.E...... ........ 0,0-1080,2400} of ViewRootImpl@cdc42e5[MainActivity]
+I/SurfaceView(27873): 142188035 Changes: creating=false format=false size=false visible=true alpha=false hint=false visible=true left=false top=false z=false attached=true lifecycleStrategy=false
+I/SurfaceView@8799e03(27873): 142188035 Cur surface: Surface(name=null)/@0x97a228
+I/SurfaceView(27873): 142188035 surfaceDestroyed
+I/SurfaceView@8799e03(27873): surfaceDestroyed callback.size 1 #2 io.flutter.embedding.android.FlutterSurfaceView{8799e03 V.E...... ........ 0,0-1080,2400}
+I/SurfaceView@8799e03(27873): updateSurface: mVisible = false mSurface.isValid() = true
+I/SurfaceView@8799e03(27873): releaseSurfaces: viewRoot = ViewRootImpl@cdc42e5[MainActivity]
+V/SurfaceView@8799e03(27873): Layout: x=0 y=0 w=1080 h=2400, frame=Rect(0, 0 - 1080, 2400)
+I/ViewRootImpl@cdc42e5[MainActivity](27873): destroyHardwareResources: Callers=android.view.ViewRootImpl.performTraversals:3932 android.view.ViewRootImpl.doTraversal:3288 android.view.ViewRootImpl$TraversalRunnable.run:11344 android.view.Choreographer$CallbackRecord.run:1689 android.view.Choreographer$CallbackRecord.run:1698 android.view.Choreographer.doCallbacks:1153 android.view.Choreographer.doFrame:1079 android.view.Choreographer$FrameDisplayEventReceiver.run:1646 android.os.Handler.handleCallback:958 android.os.Handler.dispatchMessage:99
+D/SurfaceView(27873): 140025377 windowPositionLost, frameNr = 0
+D/OpenGLRenderer(27873): CacheManager::trimMemory(20)
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Relayout returned: old=(0,0,1080,2400) new=(0,0,1080,2400) relayoutAsync=false req=(1080,2400)8 dur=4 res=0x402 s={false 0x0} ch=true seqId=0
+I/SurfaceView@8799e03(27873): windowStopped(true) false io.flutter.embedding.android.FlutterSurfaceView{8799e03 V.E...... ........ 0,0-1080,2400} of ViewRootImpl@cdc42e5[MainActivity]
+D/SurfaceView@8799e03(27873): updateSurface: surface is not valid
+I/SurfaceView@8799e03(27873): releaseSurfaces: viewRoot = ViewRootImpl@cdc42e5[MainActivity]
+D/SurfaceView@8799e03(27873): updateSurface: surface is not valid
+I/SurfaceView@8799e03(27873): releaseSurfaces: viewRoot = ViewRootImpl@cdc42e5[MainActivity]
+D/SurfaceView@8799e03(27873): updateSurface: surface is not valid
+I/SurfaceView@8799e03(27873): releaseSurfaces: viewRoot = ViewRootImpl@cdc42e5[MainActivity]
+D/InputTransport(27873): Input channel destroyed: 'ClientS', fd=166
+I/ViewRootImpl@cdc42e5[MainActivity](27873): stopped(true) old = false
+D/ViewRootImpl@cdc42e5[MainActivity](27873): WindowStopped on com.example.chat_app/com.example.chat_app.MainActivity set to true
+D/OpenGLRenderer(27873): CacheManager::trimMemory(20)
+D/SurfaceView@8799e03(27873): updateSurface: surface is not valid
+I/SurfaceView@8799e03(27873): releaseSurfaces: viewRoot = ViewRootImpl@cdc42e5[MainActivity]
+D/SurfaceView@8799e03(27873): updateSurface: surface is not valid
+I/SurfaceView@8799e03(27873): releaseSurfaces: viewRoot = ViewRootImpl@cdc42e5[MainActivity]
+D/OpenGLRenderer(27873): CacheManager::trimMemory(20)
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleAppVisibility mAppVisible = false visible = true
+D/CompatibilityChangeReporter(27873): Compat change id reported: 78294732; UID 10329; state: ENABLED
+I/ViewRootImpl@cdc42e5[MainActivity](27873): stopped(false) old = true
+D/ViewRootImpl@cdc42e5[MainActivity](27873): WindowStopped on com.example.chat_app/com.example.chat_app.MainActivity set to false
+D/SurfaceView@8799e03(27873): updateSurface: surface is not valid
+I/SurfaceView@8799e03(27873): releaseSurfaces: viewRoot = ViewRootImpl@cdc42e5[MainActivity]
+I/FilePickerUtils(27873): Caching from URI: content://com.android.providers.downloads.documents/document/msf%3A1000027028
+I/SurfaceView@8799e03(27873): onWindowVisibilityChanged(0) false io.flutter.embedding.android.FlutterSurfaceView{8799e03 V.E...... ......ID 0,0-1080,2400} of ViewRootImpl@cdc42e5[MainActivity]
+D/SurfaceView@8799e03(27873): updateSurface: surface is not valid
+I/SurfaceView@8799e03(27873): releaseSurfaces: viewRoot = ViewRootImpl@cdc42e5[MainActivity]
+I/BufferQueueProducer(27873): [](id:6ce100000002,api:0,p:-2010074544,c:27873) setDequeueTimeout:2077252342
+I/BLASTBufferQueue_Java(27873): new BLASTBufferQueue, mName= ViewRootImpl@cdc42e5[MainActivity] mNativeObject= 0xb4000073582ccc90 sc.mNativeObject= 0xb4000072c82cc290 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3028 android.view.ViewRootImpl.relayoutWindow:10131 android.view.ViewRootImpl.performTraversals:4110 android.view.ViewRootImpl.doTraversal:3288 android.view.ViewRootImpl$TraversalRunnable.run:11344 android.view.Choreographer$CallbackRecord.run:1689 android.view.Choreographer$CallbackRecord.run:1698 android.view.Choreographer.doCallbacks:1153 android.view.Choreographer.doFrame:1079 android.view.Choreographer$FrameDisplayEventReceiver.run:1646
+I/BLASTBufferQueue_Java(27873): update, w= 1080 h= 2400 mName = ViewRootImpl@cdc42e5[MainActivity] mNativeObject= 0xb4000073582ccc90 sc.mNativeObject= 0xb4000072c82cc290 format= -3 caller= android.graphics.BLASTBufferQueue.<init>:89 android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3028 android.view.ViewRootImpl.relayoutWindow:10131 android.view.ViewRootImpl.performTraversals:4110 android.view.ViewRootImpl.doTraversal:3288 android.view.ViewRootImpl$TraversalRunnable.run:11344
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Relayout returned: old=(0,0,1080,2400) new=(0,0,1080,2400) relayoutAsync=false req=(1080,2400)0 dur=13 res=0x403 s={true 0xb4000074482de5b0} ch=true seqId=0
+D/ViewRootImpl@cdc42e5[MainActivity](27873): mThreadedRenderer.initialize() mSurface={isValid=true 0xb4000074482de5b0} hwInitialized=true
+I/SurfaceView(27873): 142188035 Changes: creating=false format=false size=false visible=false alpha=false hint=false visible=false left=false top=false z=false attached=true lifecycleStrategy=false
+I/SurfaceView@8799e03(27873): windowStopped(false) true io.flutter.embedding.android.FlutterSurfaceView{8799e03 V.E...... ......ID 0,0-1080,2400} of ViewRootImpl@cdc42e5[MainActivity]
+I/SurfaceView(27873): 142188035 Changes: creating=true format=false size=false visible=true alpha=false hint=false visible=true left=false top=false z=false attached=true lifecycleStrategy=false
+I/BufferQueueProducer(27873): [](id:6ce100000003,api:0,p:-1374389535,c:27873) setDequeueTimeout:2077252342
+I/BLASTBufferQueue_Java(27873): update, w= 1080 h= 2400 mName = null mNativeObject= 0xb4000073582d20f0 sc.mNativeObject= 0xb4000072c82ea590 format= 4 caller= android.view.SurfaceView.createBlastSurfaceControls:1517 android.view.SurfaceView.updateSurface:1193 android.view.SurfaceView.setWindowStopped:403 android.view.SurfaceView.surfaceCreated:1994 android.view.ViewRootImpl.notifySurfaceCreated:2945 android.view.ViewRootImpl.performTraversals:4580
+I/SurfaceView@8799e03(27873): 142188035 Cur surface: Surface(name=null)/@0x97a228
+I/SurfaceView@8799e03(27873): pST: sr = Rect(0, 0 - 1080, 2400) sw = 1080 sh = 2400
+D/SurfaceView@8799e03(27873): 142188035 performSurfaceTransaction RenderWorker position = [0, 0, 1080, 2400] surfaceSize = 1080x2400
+I/SurfaceView@8799e03(27873): updateSurface: mVisible = true mSurface.isValid() = true
+I/SurfaceView@8799e03(27873): updateSurface: mSurfaceCreated = false surfaceChanged = true visibleChanged = true
+I/SurfaceView(27873): 142188035 visibleChanged -- surfaceCreated
+I/SurfaceView@8799e03(27873): surfaceCreated 1 #1 io.flutter.embedding.android.FlutterSurfaceView{8799e03 V.E...... ......ID 0,0-1080,2400}
+E/qdgralloc(27873): GetGpuPixelFormat: No map for format: 0x38
+E/AdrenoUtils(27873): <validate_memory_layout_input_parmas:1970>: Unknown Format 0
+E/AdrenoUtils(27873): <adreno_init_memory_layout:4720>: Memory Layout input parameter validation failed!
+E/qdgralloc(27873): GetGpuResourceSizeAndDimensions Graphics metadata init failed
+E/Gralloc4(27873): isSupported(1, 1, 56, 1, ...) failed with 1
+E/GraphicBufferAllocator(27873): Failed to allocate (4 x 4) layerCount 1 format 56 usage b00: 1
+E/AHardwareBuffer(27873): GraphicBuffer(w=4, h=4, lc=1) failed (Unknown error -1), handle=0x0
+E/qdgralloc(27873): GetGpuPixelFormat: No map for format: 0x3b
+E/AdrenoUtils(27873): <validate_memory_layout_input_parmas:1970>: Unknown Format 0
+E/AdrenoUtils(27873): <adreno_init_memory_layout:4720>: Memory Layout input parameter validation failed!
+E/qdgralloc(27873): GetGpuResourceSizeAndDimensions Graphics metadata init failed
+E/Gralloc4(27873): isSupported(1, 1, 59, 1, ...) failed with 1
+E/GraphicBufferAllocator(27873): Failed to allocate (4 x 4) layerCount 1 format 59 usage b00: 1
+E/AHardwareBuffer(27873): GraphicBuffer(w=4, h=4, lc=1) failed (Unknown error -1), handle=0x0
+E/qdgralloc(27873): GetGpuPixelFormat: No map for format: 0x38
+E/AdrenoUtils(27873): <validate_memory_layout_input_parmas:1970>: Unknown Format 0
+E/AdrenoUtils(27873): <adreno_init_memory_layout:4720>: Memory Layout input parameter validation failed!
+E/qdgralloc(27873): GetGpuResourceSizeAndDimensions Graphics metadata init failed
+E/Gralloc4(27873): isSupported(1, 1, 56, 1, ...) failed with 1
+E/GraphicBufferAllocator(27873): Failed to allocate (4 x 4) layerCount 1 format 56 usage b00: 1
+E/AHardwareBuffer(27873): GraphicBuffer(w=4, h=4, lc=1) failed (Unknown error -1), handle=0x0
+E/qdgralloc(27873): GetGpuPixelFormat: No map for format: 0x3b
+E/AdrenoUtils(27873): <validate_memory_layout_input_parmas:1970>: Unknown Format 0
+E/AdrenoUtils(27873): <adreno_init_memory_layout:4720>: Memory Layout input parameter validation failed!
+E/qdgralloc(27873): GetGpuResourceSizeAndDimensions Graphics metadata init failed
+E/Gralloc4(27873): isSupported(1, 1, 59, 1, ...) failed with 1
+E/GraphicBufferAllocator(27873): Failed to allocate (4 x 4) layerCount 1 format 59 usage b00: 1
+E/AHardwareBuffer(27873): GraphicBuffer(w=4, h=4, lc=1) failed (Unknown error -1), handle=0x0
+I/SurfaceView(27873): 142188035 surfaceChanged -- format=4 w=1080 h=2400
+I/SurfaceView@8799e03(27873): surfaceChanged (1080,2400) 1 #1 io.flutter.embedding.android.FlutterSurfaceView{8799e03 V.E...... ......ID 0,0-1080,2400}
+I/SurfaceView(27873): 142188035 surfaceRedrawNeeded
+V/SurfaceView@8799e03(27873): Layout: x=0 y=0 w=1080 h=2400, frame=Rect(0, 0 - 1080, 2400)
+D/ViewRootImpl@cdc42e5[MainActivity](27873): reportNextDraw android.view.ViewRootImpl.performTraversals:4718 android.view.ViewRootImpl.doTraversal:3288 android.view.ViewRootImpl$TraversalRunnable.run:11344 android.view.Choreographer$CallbackRecord.run:1689 android.view.Choreographer$CallbackRecord.run:1698
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Setup new sync=wmsSync-ViewRootImpl@cdc42e5[MainActivity]#4
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Creating new active sync group ViewRootImpl@cdc42e5[MainActivity]#5
+I/ViewRootImpl@cdc42e5[MainActivity](27873): registerCallbacksForSync syncBuffer=false
+D/SurfaceView(27873): 142188035 updateSurfacePosition RenderWorker, frameNr = 1, position = [0, 0, 1080, 2400] surfaceSize = 1080x2400
+I/SurfaceView@8799e03(27873): uSP: rtp = Rect(0, 0 - 1080, 2400) rtsw = 1080 rtsh = 2400
+I/SurfaceView@8799e03(27873): onSSPAndSRT: pl = 0 pt = 0 sx = 1.0 sy = 1.0
+I/SurfaceView@8799e03(27873): aOrMT: ViewRootImpl@cdc42e5[MainActivity] t = android.view.SurfaceControl$Transaction@9d0221b fN = 1 android.view.SurfaceView.-$$Nest$mapplyOrMergeTransaction:0 android.view.SurfaceView$SurfaceViewPositionUpdateListener.positionChanged:1666 android.graphics.RenderNode$CompositePositionUpdateListener.positionChanged:369
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d0570 mBlastBufferQueue=0xb4000073582ccc90 fn= 1 mRenderHdrSdrRatio=1.0 caller= android.view.SurfaceView.applyOrMergeTransaction:1598 android.view.SurfaceView.-$$Nest$mapplyOrMergeTransaction:0 android.view.SurfaceView$SurfaceViewPositionUpdateListener.positionChanged:1666
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Received frameDrawingCallback syncResult=0 frameNum=1.
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d5ab0 mBlastBufferQueue=0xb4000073582ccc90 fn= 1 mRenderHdrSdrRatio=1.0 caller= android.view.ViewRootImpl$8.onFrameDraw:13841 android.view.ThreadedRenderer$1.onFrameDraw:792 <bottom of call stack>
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Setting up sync and frameCommitCallback
+I/BLASTBufferQueue(27873): [ViewRootImpl@cdc42e5[MainActivity]#2](f:0,a:0,s:0) onFrameAvailable the first frame is available
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Received frameCommittedCallback lastAttemptedDrawFrameNum=1 didProduceBuffer=true
+I/InsetsSourceConsumer(27873): applyRequestedVisibilityToControl: visible=true, type=navigationBars, host=com.example.chat_app/com.example.chat_app.MainActivity
+I/InsetsSourceConsumer(27873): applyRequestedVisibilityToControl: visible=true, type=statusBars, host=com.example.chat_app/com.example.chat_app.MainActivity
+I/BLASTBufferQueue(27873): [SurfaceView[com.example.chat_app/com.example.chat_app.MainActivity]@0#3](f:0,a:0,s:0) onFrameAvailable the first frame is available
+I/ViewRootImpl@cdc42e5[MainActivity](27873): reportDrawFinished seqId=0
+I/SurfaceView(27873): 142188035 finishedDrawing
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleWindowFocusChanged: 1 0 call from android.view.ViewRootImpl.-$$Nest$mhandleWindowFocusChanged:0
+D/ViewRootImpl@cdc42e5[MainActivity](27873): mThreadedRenderer.initializeIfNeeded()#2 mSurface={isValid=true 0xb4000074482de5b0}
+D/InputMethodManagerUtils(27873): startInputInner - Id : 0
+I/InputMethodManager(27873): startInputInner - IInputMethodManagerGlobalInvoker.startInputOrWindowGainedFocus
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Resizing android.view.ViewRootImpl@76718f6: frame = [0,0][1080,2400] reportDraw = false forceLayout = false syncSeqId = -1
+I/InsetsSourceConsumer(27873): applyRequestedVisibilityToControl: visible=false, type=ime, host=com.example.chat_app/com.example.chat_app.MainActivity
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleResized, msg = 4 frames=ClientWindowFrames{frame=[0,0][1080,2400] display=[0,0][1080,2400] parentFrame=[0,0][0,0]} forceNextWindowRelayout=false displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false
+W/xample.chat_app(27873): ApkAssets: Deleting an ApkAssets object '<empty> and /system/app/DictDiotekForSec/DictDiotekForSec.apk' with 1 weak references
+W/xample.chat_app(27873): ApkAssets: Deleting an ApkAssets object '<empty> and /data/app/~~WVbsq9f9srDrtmHXfFlzYw==/com.samsung.android.samsungpass-BqnHsW-u8GLqxLxtIuTMwg==/base.apk' with 1 weak references
+W/xample.chat_app(27873): ApkAssets: Deleting an ApkAssets object '<empty> and /data/app/~~CaEhMGTjH90lX5JypLGXqA==/com.openai.chatgpt-MOrx9Gdfnuw9WTnIW5Vm7A==/base.apk' with 1 weak references
+W/xample.chat_app(27873): ApkAssets: Deleting an ApkAssets object '<empty> and /data/app/~~CaEhMGTjH90lX5JypLGXqA==/com.openai.chatgpt-MOrx9Gdfnuw9WTnIW5Vm7A==/split_config.arm64_v8a.apk' with 1 weak references
+W/xample.chat_app(27873): ApkAssets: Deleting an ApkAssets object '<empty> and /data/app/~~CaEhMGTjH90lX5JypLGXqA==/com.openai.chatgpt-MOrx9Gdfnuw9WTnIW5Vm7A==/split_config.en.apk' with 1 weak references
+W/xample.chat_app(27873): ApkAssets: Deleting an ApkAssets object '<empty> and /data/app/~~CaEhMGTjH90lX5JypLGXqA==/com.openai.chatgpt-MOrx9Gdfnuw9WTnIW5Vm7A==/split_config.xxhdpi.apk' with 1 weak references
+W/xample.chat_app(27873): ApkAssets: Deleting an ApkAssets object '<empty> and /data/app/~~kVvUkhS1bqHSaNtHBFRwzg==/sharif.vocapower-OuPm1jAAFSv1XozRWPDjtA==/base.apk' with 1 weak references
+W/xample.chat_app(27873): ApkAssets: Deleting an ApkAssets object '<empty> and /data/app/~~kVvUkhS1bqHSaNtHBFRwzg==/sharif.vocapower-OuPm1jAAFSv1XozRWPDjtA==/split_config.arm64_v8a.apk' with 1 weak references
+W/xample.chat_app(27873): ApkAssets: Deleting an ApkAssets object '<empty> and /data/app/~~kVvUkhS1bqHSaNtHBFRwzg==/sharif.vocapower-OuPm1jAAFSv1XozRWPDjtA==/split_config.en.apk' with 1 weak references
+W/xample.chat_app(27873): ApkAssets: Deleting an ApkAssets object '<empty> and /data/app/~~kVvUkhS1bqHSaNtHBFRwzg==/sharif.vocapower-OuPm1jAAFSv1XozRWPDjtA==/split_config.xxhdpi.apk' with 1 weak references
+D/FilePickerUtils(27873): File loaded and cached at:/data/user/0/com.example.chat_app/cache/file_picker/1759995037527/Qwen2.5-0.5B-Instruct-Q4_K_M.gguf
+D/FilePickerDelegate(27873): File path:[com.mr.flutter.plugin.filepicker.FileInfo@4c4c4f7]
+I/flutter (27873): [ModelDownload] File picker result: Got result
+I/flutter (27873): [ModelDownload] Selected file path: /data/user/0/com.example.chat_app/cache/file_picker/1759995037527/Qwen2.5-0.5B-Instruct-Q4_K_M.gguf
+I/flutter (27873): [ModelDownload] Checking if file exists...
+I/flutter (27873): [ModelDownload] √ File exists! Size: 379.38 MB (397808192 bytes)
+I/flutter (27873): [ModelDownload] √ File size is valid
+I/flutter (27873): [ModelDownload] √ File has .gguf extension
+I/flutter (27873): [ModelDownload] √ Model path set successfully: /data/user/0/com.example.chat_app/cache/file_picker/1759995037527/Qwen2.5-0.5B-Instruct-Q4_K_M.gguf
+I/flutter (27873): [UI] pickLocalModel returned: /data/user/0/com.example.chat_app/cache/file_picker/1759995037527/Qwen2.5-0.5B-Instruct-Q4_K_M.gguf
+I/flutter (27873): [UI] √ Model selected: Qwen2.5-0.5B-Instruct-Q4_K_M.gguf
+I/flutter (27873): [UI] Full path: /data/user/0/com.example.chat_app/cache/file_picker/1759995037527/Qwen2.5-0.5B-Instruct-Q4_K_M.gguf
+I/flutter (27873): [UI] Automatically loading the selected model...
+I/flutter (27873): [UI] ===== Load model triggered =====
+I/flutter (27873): [UI] Current model path: /data/user/0/com.example.chat_app/cache/file_picker/1759995037527/Qwen2.5-0.5B-Instruct-Q4_K_M.gguf
+I/flutter (27873): [UI] Calling chatService.loadModel()...
+I/flutter (27873): [ChatService] ===== Starting model load process =====
+I/flutter (27873): [ChatService] Set _isLoadingModel = true
+I/flutter (27873): [UI] Status callback: Loading model...
+I/flutter (27873): [ChatService] Model path from download service: /data/user/0/com.example.chat_app/cache/file_picker/1759995037527/Qwen2.5-0.5B-Instruct-Q4_K_M.gguf
+I/flutter (27873): [ChatService] Checking if model file exists at: /data/user/0/com.example.chat_app/cache/file_picker/1759995037527/Qwen2.5-0.5B-Instruct-Q4_K_M.gguf
+I/flutter (27873): [ChatService] √ Model file exists! Size: 379.38 MB
+I/flutter (27873): [ChatService] Creating new LlamaController instance...
+I/flutter (27873): [UI] Status callback: Creating LlamaController...
+I/flutter (27873): [ChatService] √ LlamaController created
+I/flutter (27873): [ChatService] Setting up progress listener...
+I/flutter (27873): [ChatService] Calling loadModel with:
+I/flutter (27873): [ChatService]   - modelPath: /data/user/0/com.example.chat_app/cache/file_picker/1759995037527/Qwen2.5-0.5B-Instruct-Q4_K_M.gguf
+I/flutter (27873): [ChatService]   - threads: 4
+I/flutter (27873): [ChatService]   - contextSize: 1024
+I/LlamaJNI(27873): Loading model: /data/user/0/com.example.chat_app/cache/file_picker/1759995037527/Qwen2.5-0.5B-Instruct-Q4_K_M.gguf
+I/LlamaJNI(27873): Vocab initialized: 0xb4000074083780d0
+I/LlamaJNI(27873): Model loaded successfully
+I/flutter (27873): [ChatService] √√√ Model loaded successfully!
+I/flutter (27873): [UI] Status callback: Model loaded successfully!
+I/flutter (27873): [ChatService] Set _isLoadingModel = false
+I/flutter (27873): [ChatService] ===== Model load process complete =====
+I/flutter (27873): [UI] loadModel completed, checking if model is loaded...
+I/flutter (27873): [ChatService] Checking if model is loaded...
+I/flutter (27873): [ChatService] Load progress: 100.0%
+I/flutter (27873): [UI] Progress callback: 100.0%
+I/flutter (27873): [ChatService] Model loaded status: true
+I/flutter (27873): [UI] isModelLoaded result: true
+I/flutter (27873): [UI] √√√ Model loaded successfully! Ready for chat.
+I/flutter (27873): [UI] ===== Load model complete =====
+I/flutter (27873): [UI] ===== Load from local complete =====
+I/InputMethodManager_LC(27873): showSoftInput(View,I)
+I/ImeTracker(27873): com.example.chat_app:2742abdc: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+I/InputMethodManager_LC(27873): ssi(): flags=0 view=com.example.chat_app reason = SHOW_SOFT_INPUT
+I/InputMethodManager_LC(27873): ssi() view is not EditText
+D/InputMethodManagerUtils(27873): startInputInner - Id : 0
+I/InputMethodManager(27873): startInputInner - IInputMethodManagerGlobalInvoker.startInputOrWindowGainedFocus
+D/InputMethodManager(27873): showSoftInput() view=io.flutter.embedding.android.FlutterView{4495bef VFE...... .F....ID 0,0-1080,2400 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+D/InputConnectionAdaptor(27873): The input method toggled cursor monitoring on
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Resizing android.view.ViewRootImpl@76718f6: frame = [0,0][1080,2400] reportDraw = false forceLayout = false syncSeqId = -1
+I/InsetsController(27873): onStateChanged: host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:7209, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400), mDisplayCutout=DisplayCutout{insets=Rect(0, 88 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(512, 0 - 568, 88), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2400 physicalDisplayWidth=1080 physicalDisplayHeight=2400 density={2.8125} cutoutSpec={M 0,0 M 0,11.43427858034597 a 9.899054752987353,9.899054752987353 0 1,0 0,19.79810950597471 a 9.899054752987353,9.899054752987353 0 1,0 0,-19.79810950597471 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=0, center=Point(0, 0)}, RoundedCorner{position=TopRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomLeft, radius=0, center=Point(0, 0)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2400), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 88) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2400 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {3 mType=ime mFrame=[0,1598][1080,2400] mVisible=false mFlags=[]}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0000 mType=statusBars mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0005 mType=mandatorySystemGestures mFrame=[0,0][1080,122] mVisible=true mFlags=[]}, InsetsSource: {432a0006 mType=tappableElement mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {77940001 mType=navigationBars mFrame=[0,0][0,0] mVisible=true mFlags=[SUPPRESS_SCRIM]}, InsetsSource: {77940004 mType=systemGestures mFrame=[0,0][84,2400] mVisible=true mFlags=[]}, InsetsSource: {77940005 mType=mandatorySystemGestures mFrame=[0,2330][1080,2400] mVisible=true mFlags=[]}, InsetsSource: {77940006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags=[]}, InsetsSource: {77940024 mType=systemGestures mFrame=[996,0][1080,2400] mVisible=true mFlags=[]} }
+I/InsetsSourceConsumer(27873): applyRequestedVisibilityToControl: visible=false, type=ime, host=com.example.chat_app/com.example.chat_app.MainActivity
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Resizing android.view.ViewRootImpl@76718f6: frame = [0,0][1080,2400] reportDraw = false forceLayout = false syncSeqId = -1
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleResized, msg = 4 frames=ClientWindowFrames{frame=[0,0][1080,2400] display=[0,0][1080,2400] parentFrame=[0,0][0,0]} forceNextWindowRelayout=false displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false
+I/InsetsController(27873): onStateChanged: host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:7209, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400), mDisplayCutout=DisplayCutout{insets=Rect(0, 88 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(512, 0 - 568, 88), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2400 physicalDisplayWidth=1080 physicalDisplayHeight=2400 density={2.8125} cutoutSpec={M 0,0 M 0,11.43427858034597 a 9.899054752987353,9.899054752987353 0 1,0 0,19.79810950597471 a 9.899054752987353,9.899054752987353 0 1,0 0,-19.79810950597471 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=0, center=Point(0, 0)}, RoundedCorner{position=TopRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomLeft, radius=0, center=Point(0, 0)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2400), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 88) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2400 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {3 mType=ime mFrame=[0,1485][1080,2400] mVisible=false mFlags=[]}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0000 mType=statusBars mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0005 mType=mandatorySystemGestures mFrame=[0,0][1080,122] mVisible=true mFlags=[]}, InsetsSource: {432a0006 mType=tappableElement mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {77940001 mType=navigationBars mFrame=[0,0][0,0] mVisible=true mFlags=[SUPPRESS_SCRIM]}, InsetsSource: {77940004 mType=systemGestures mFrame=[0,0][84,2400] mVisible=true mFlags=[]}, InsetsSource: {77940005 mType=mandatorySystemGestures mFrame=[0,2330][1080,2400] mVisible=true mFlags=[]}, InsetsSource: {77940006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags=[]}, InsetsSource: {77940024 mType=systemGestures mFrame=[996,0][1080,2400] mVisible=true mFlags=[]} }
+I/InsetsSourceConsumer(27873): applyRequestedVisibilityToControl: visible=false, type=ime, host=com.example.chat_app/com.example.chat_app.MainActivity
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleResized, msg = 4 frames=ClientWindowFrames{frame=[0,0][1080,2400] display=[0,0][1080,2400] parentFrame=[0,0][0,0]} forceNextWindowRelayout=false displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false
+D/InsetsController(27873): show(ime(), fromIme=true)
+I/InsetsController(27873): setRequestedVisibleTypes: visible=true, mask=ime, host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.InsetsController.controlAnimationUnchecked:1445 android.view.InsetsController.applyAnimation:2005 android.view.InsetsController.applyAnimation:1968 android.view.InsetsController.show:1309 android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:7233 android.view.ViewRootImpl$ViewRootHandler.handleMessage:7166 android.os.Handler.dispatchMessage:106 android.os.Looper.loopOnce:230 android.os.Looper.loop:319 android.app.ActivityThread.main:8919
+I/InsetsController(27873): controlAnimationUncheckedInner: Added types=ime, animType=0, host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.InsetsController.controlAnimationUnchecked:1449 android.view.InsetsController.applyAnimation:2005 android.view.InsetsController.applyAnimation:1968
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Resizing android.view.ViewRootImpl@76718f6: frame = [0,0][1080,2400] reportDraw = false forceLayout = false syncSeqId = -1
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882cfe90 mBlastBufferQueue=0xb4000073582ccc90 fn= 4 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/InsetsController(27873): onStateChanged: host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:7209, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400), mDisplayCutout=DisplayCutout{insets=Rect(0, 88 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(512, 0 - 568, 88), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2400 physicalDisplayWidth=1080 physicalDisplayHeight=2400 density={2.8125} cutoutSpec={M 0,0 M 0,11.43427858034597 a 9.899054752987353,9.899054752987353 0 1,0 0,19.79810950597471 a 9.899054752987353,9.899054752987353 0 1,0 0,-19.79810950597471 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=0, center=Point(0, 0)}, RoundedCorner{position=TopRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomLeft, radius=0, center=Point(0, 0)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2400), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 88) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2400 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {3 mType=ime mFrame=[0,1485][1080,2400] mVisible=true mFlags=[]}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0000 mType=statusBars mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0005 mType=mandatorySystemGestures mFrame=[0,0][1080,122] mVisible=true mFlags=[]}, InsetsSource: {432a0006 mType=tappableElement mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {77940001 mType=navigationBars mFrame=[0,0][0,0] mVisible=true mFlags=[SUPPRESS_SCRIM]}, InsetsSource: {77940004 mType=systemGestures mFrame=[0,0][84,2400] mVisible=true mFlags=[]}, InsetsSource: {77940005 mType=mandatorySystemGestures mFrame=[0,2330][1080,2400] mVisible=true mFlags=[]}, InsetsSource: {77940006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags=[]}, InsetsSource: {77940024 mType=systemGestures mFrame=[996,0][1080,2400] mVisible=true mFlags=[]} }
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleResized, msg = 4 frames=ClientWindowFrames{frame=[0,0][1080,2400] display=[0,0][1080,2400] parentFrame=[0,0][0,0]} forceNextWindowRelayout=false displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882ede70 mBlastBufferQueue=0xb4000073582ccc90 fn= 5 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d86b0 mBlastBufferQueue=0xb4000073582ccc90 fn= 6 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882cce70 mBlastBufferQueue=0xb4000073582ccc90 fn= 7 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d0990 mBlastBufferQueue=0xb4000073582ccc90 fn= 8 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882e1b30 mBlastBufferQueue=0xb4000073582ccc90 fn= 9 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882cd130 mBlastBufferQueue=0xb4000073582ccc90 fn= 10 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882e2d10 mBlastBufferQueue=0xb4000073582ccc90 fn= 11 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d23b0 mBlastBufferQueue=0xb4000073582ccc90 fn= 12 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882e9b10 mBlastBufferQueue=0xb4000073582ccc90 fn= 13 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d70b0 mBlastBufferQueue=0xb4000073582ccc90 fn= 14 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882de6f0 mBlastBufferQueue=0xb4000073582ccc90 fn= 15 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882e2210 mBlastBufferQueue=0xb4000073582ccc90 fn= 16 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882cfa70 mBlastBufferQueue=0xb4000073582ccc90 fn= 17 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882e20b0 mBlastBufferQueue=0xb4000073582ccc90 fn= 18 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882dec70 mBlastBufferQueue=0xb4000073582ccc90 fn= 19 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882e2fd0 mBlastBufferQueue=0xb4000073582ccc90 fn= 20 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882e6150 mBlastBufferQueue=0xb4000073582ccc90 fn= 21 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/InsetsController(27873): cancelAnimation: types=ime, animType=0, host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.InsetsController.notifyFinished:1748 android.view.InsetsAnimationControlImpl.applyChangeInsets:312 android.view.InsetsController.lambda$new$3:918
+I/ImeTracker(27873): com.example.chat_app:2742abdc: onShown
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882ecdf0 mBlastBufferQueue=0xb4000073582ccc90 fn= 22 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882db570 mBlastBufferQueue=0xb4000073582ccc90 fn= 22 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/flutter (27873): [UI] ===== Send message triggered =====
+I/flutter (27873): [UI] Message text: "Hi"
+I/flutter (27873): [UI] Clearing text field and sending message to chatService...
+I/flutter (27873): [ChatService] ===== Sending message with chat template =====
+I/flutter (27873): [ChatService] User message: "Hi"
+I/flutter (27873): [ChatService] Template: auto-detected from model
+I/flutter (27873): [ChatService] Set _isGenerating = true
+I/flutter (27873): [ChatService] Added user message to conversation history
+I/flutter (27873): [ChatService] Current conversation length: 2 messages
+I/flutter (27873): [ChatService] Starting generation with parameters:
+I/flutter (27873): [ChatService]   - messages: 2
+I/flutter (27873): [ChatService]   - maxTokens: 512
+I/flutter (27873): [ChatService]   - temperature: 0.7
+I/flutter (27873): [ChatService]   - topP: 0.9
+I/flutter (27873): [ChatService] Calling generateChat()...
+I/flutter (27873): [ChatService] √ generateChat() returned stream
+I/flutter (27873): [ChatService] Setting up stream listener...
+I/flutter (27873): [ChatService] Starting to listen to stream with await for...
+I/flutter (27873): [ChatService] Waiting for first token (timeout: 10 seconds)...
+I/flutter (27873): [UI] ===== Send message complete =====
+I/flutter (27873): [UI] Generation state changed: true
+I/TextInputPlugin(27873): Composing region changed by the framework. Restarting the input method.
+D/InputMethodManagerUtils(27873): startInputInner - Id : 0
+I/InputMethodManager(27873): startInputInner - IInputMethodManagerGlobalInvoker.startInputOrWindowGainedFocus
+D/InputTransport(27873): Input channel destroyed: 'ClientS', fd=173
+D/InputTransport(27873): Input channel destroyed: 'ClientS', fd=145
+W/System  (27873): A resource failed to call close. 
+W/System  (27873): A resource failed to call close.
+W/RemoteInputConnectionImpl(27873): getTextBeforeCursor on inactive InputConnection
+I/ImeTracker(27873): com.example.chat_app:f3dfd05c: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+I/InputMethodManager_LC(27873): hsifw() - flag : 0
+I/InputMethodManager_LC(27873): hsifw() - mService.hideSoftInput
+D/ChatTemplateManager(27873): Using template: chatml for formatting 2 messages
+I/LlamaJNI(27873): Tokenizing prompt: '<|im_start|>system
+I/LlamaJNI(27873): You are a helpful AI assistant. Be concise and friendly.<|im_end|>
+I/LlamaJNI(27873): <|im_start|>user
+I/LlamaJNI(27873): Hi<|im_end|>
+I/LlamaJNI(27873): <|im_start|>assistant
+I/LlamaJNI(27873): ' (length: 138)
+I/LlamaJNI(27873): Vocab pointer: 0xb4000074083780d0, Model pointer: 0xb400007408374330
+W/RemoteInputConnectionImpl(27873): getTextBeforeCursor on inactive InputConnection
+I/LlamaJNI(27873): Token count: 26
+I/LlamaJNI(27873): Decoding batch starting at position 0 with 26 tokens
+I/LlamaJNI(27873): Context size: 1024, attempting to decode positions 0 to 25
+D/InputConnectionAdaptor(27873): The input method toggled cursor monitoring on
+W/WindowOnBackDispatcher(27873): sendCancelIfRunning: isInProgress=falsecallback=ImeCallback=ImeOnBackInvokedCallback@17008160 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@130dc32
+I/InsetsController(27873): setRequestedVisibleTypes: visible=false, mask=ime, host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.InsetsController.controlAnimationUnchecked:1445 android.view.InsetsController.applyAnimation:2005 android.view.InsetsController.applyAnimation:1968 android.view.InsetsController.hide:1403 android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:7240 android.view.ViewRootImpl$ViewRootHandler.handleMessage:7166 android.os.Handler.dispatchMessage:106 android.os.Looper.loopOnce:230 android.os.Looper.loop:319 android.app.ActivityThread.main:8919
+I/InsetsController(27873): controlAnimationUncheckedInner: Added types=ime, animType=1, host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.InsetsController.controlAnimationUnchecked:1449 android.view.InsetsController.applyAnimation:2005 android.view.InsetsController.applyAnimation:1968
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882e2d10 mBlastBufferQueue=0xb4000073582ccc90 fn= 23 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Resizing android.view.ViewRootImpl@76718f6: frame = [0,0][1080,2400] reportDraw = false forceLayout = false syncSeqId = -1
+I/InsetsController(27873): onStateChanged: host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:7209, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400), mDisplayCutout=DisplayCutout{insets=Rect(0, 88 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(512, 0 - 568, 88), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2400 physicalDisplayWidth=1080 physicalDisplayHeight=2400 density={2.8125} cutoutSpec={M 0,0 M 0,11.43427858034597 a 9.899054752987353,9.899054752987353 0 1,0 0,19.79810950597471 a 9.899054752987353,9.899054752987353 0 1,0 0,-19.79810950597471 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=0, center=Point(0, 0)}, RoundedCorner{position=TopRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomLeft, radius=0, center=Point(0, 0)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2400), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 88) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2400 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {3 mType=ime mFrame=[0,1485][1080,2400] mVisible=false mFlags=[]}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0000 mType=statusBars mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0005 mType=mandatorySystemGestures mFrame=[0,0][1080,122] mVisible=true mFlags=[]}, InsetsSource: {432a0006 mType=tappableElement mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {77940001 mType=navigationBars mFrame=[0,0][0,0] mVisible=true mFlags=[SUPPRESS_SCRIM]}, InsetsSource: {77940004 mType=systemGestures mFrame=[0,0][84,2400] mVisible=true mFlags=[]}, InsetsSource: {77940005 mType=mandatorySystemGestures mFrame=[0,2330][1080,2400] mVisible=true mFlags=[]}, InsetsSource: {77940006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags=[]}, InsetsSource: {77940024 mType=systemGestures mFrame=[996,0][1080,2400] mVisible=true mFlags=[]} }
+I/InsetsSourceConsumer(27873): applyRequestedVisibilityToControl: visible=true, type=navigationBars, host=com.example.chat_app/com.example.chat_app.MainActivity
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleResized, msg = 4 frames=ClientWindowFrames{frame=[0,0][1080,2400] display=[0,0][1080,2400] parentFrame=[0,0][0,0]} forceNextWindowRelayout=false displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882e2d10 mBlastBufferQueue=0xb4000073582ccc90 fn= 24 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d6190 mBlastBufferQueue=0xb4000073582ccc90 fn= 25 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d6190 mBlastBufferQueue=0xb4000073582ccc90 fn= 26 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882ed630 mBlastBufferQueue=0xb4000073582ccc90 fn= 27 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882de170 mBlastBufferQueue=0xb4000073582ccc90 fn= 28 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882de170 mBlastBufferQueue=0xb4000073582ccc90 fn= 29 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882e2210 mBlastBufferQueue=0xb4000073582ccc90 fn= 30 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882de170 mBlastBufferQueue=0xb4000073582ccc90 fn= 31 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882de170 mBlastBufferQueue=0xb4000073582ccc90 fn= 32 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d0830 mBlastBufferQueue=0xb4000073582ccc90 fn= 33 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d0830 mBlastBufferQueue=0xb4000073582ccc90 fn= 34 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d2670 mBlastBufferQueue=0xb4000073582ccc90 fn= 35 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d2670 mBlastBufferQueue=0xb4000073582ccc90 fn= 36 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d3c70 mBlastBufferQueue=0xb4000073582ccc90 fn= 37 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882ee810 mBlastBufferQueue=0xb4000073582ccc90 fn= 38 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/InsetsController(27873): cancelAnimation: types=ime, animType=1, host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.InsetsController.notifyFinished:1748 android.view.InsetsAnimationControlImpl.applyChangeInsets:312 android.view.InsetsController.lambda$new$3:918
+I/ImeTracker(27873): com.example.chat_app:a3c0b59: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT_BY_INSETS_API
+I/InputMethodManager_LC(27873): notifyImeHidden: IInputMethodManagerGlobalInvoker.hideSoftInput
+I/ImeTracker(27873): com.example.chat_app:f3dfd05c: onHidden
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d9f70 mBlastBufferQueue=0xb4000073582ccc90 fn= 39 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/LlamaJNI(27873): ✅ Decode successful! Processed 26 tokens starting at position 0
+I/flutter (27873): [ChatService] √ Stream started - first token arrived
+I/flutter (27873): [ChatService] 📥 TOKEN RECEIVED: "Hello"
+I/flutter (27873): [ChatService] √√√ FIRST TOKEN RECEIVED!
+I/flutter (27873): [ChatService] 📥 TOKEN RECEIVED: "!"
+I/flutter (27873): [ChatService] 📥 TOKEN RECEIVED: " How"
+I/flutter (27873): [ChatService] 📥 TOKEN RECEIVED: " can"
+I/flutter (27873): [ChatService] 📥 TOKEN RECEIVED: " I"
+I/flutter (27873): [ChatService] 📥 TOKEN RECEIVED: " assist"
+I/flutter (27873): [ChatService] 📥 TOKEN RECEIVED: " you"
+I/flutter (27873): [ChatService] 📥 TOKEN RECEIVED: " today"
+I/flutter (27873): [ChatService] 📥 TOKEN RECEIVED: "?"
+I/flutter (27873): [ChatService] ===== Stream completed (await for finished) =====
+I/flutter (27873): [ChatService] Current time: 2025-10-09 13:15:49.704659
+I/flutter (27873): [ChatService] Total tokens received: 9
+I/flutter (27873): [ChatService] Stream ever started: true
+I/flutter (27873): [ChatService] Assistant response length: 34 characters
+I/flutter (27873): [ChatService] √ Generation complete. Total tokens: 9
+I/flutter (27873): [ChatService] √ Assistant response added to history
+I/flutter (27873): [ChatService] √ Response content: "Hello! How can I assist you today?"
+I/flutter (27873): [ChatService] √ Conversation now has 3 messages
+I/flutter (27873): [ChatService] Broadcasting state update: isGenerating = false
+I/flutter (27873): [ChatService] √√√ State updated - generation flag cleared
+I/flutter (27873): [ChatService] ===== Message processing complete =====
+I/flutter (27873): [ChatService] Final state: isGenerating = false
+I/flutter (27873): [UI] Generation state changed: false
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Resizing android.view.ViewRootImpl@76718f6: frame = [0,0][1080,2400] reportDraw = false forceLayout = false syncSeqId = -1
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Resizing android.view.ViewRootImpl@76718f6: frame = [0,0][1080,2400] reportDraw = false forceLayout = false syncSeqId = -1
+I/InsetsController(27873): onStateChanged: host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:7196, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400), mDisplayCutout=DisplayCutout{insets=Rect(0, 88 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(512, 0 - 568, 88), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2400 physicalDisplayWidth=1080 physicalDisplayHeight=2400 density={2.8125} cutoutSpec={M 0,0 M 0,11.43427858034597 a 9.899054752987353,9.899054752987353 0 1,0 0,19.79810950597471 a 9.899054752987353,9.899054752987353 0 1,0 0,-19.79810950597471 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=0, center=Point(0, 0)}, RoundedCorner{position=TopRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomLeft, radius=0, center=Point(0, 0)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2400), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 88) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2400 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {3 mType=ime mFrame=[0,0][0,0] mVisible=false mFlags=[]}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0000 mType=statusBars mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0005 mType=mandatorySystemGestures mFrame=[0,0][1080,122] mVisible=true mFlags=[]}, InsetsSource: {432a0006 mType=tappableElement mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {77940001 mType=navigationBars mFrame=[0,0][0,0] mVisible=true mFlags=[SUPPRESS_SCRIM]}, InsetsSource: {77940004 mType=systemGestures mFrame=[0,0][84,2400] mVisible=true mFlags=[]}, InsetsSource: {77940005 mType=mandatorySystemGestures mFrame=[0,2330][1080,2400] mVisible=true mFlags=[]}, InsetsSource: {77940006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags=[]}, InsetsSource: {77940024 mType=systemGestures mFrame=[996,0][1080,2400] mVisible=true mFlags=[]} }
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleResized, msg = 4 frames=ClientWindowFrames{frame=[0,0][1080,2400] display=[0,0][1080,2400] parentFrame=[0,0][0,0]} forceNextWindowRelayout=false displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false
+I/InsetsController(27873): onStateChanged: host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:7196, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400), mDisplayCutout=DisplayCutout{insets=Rect(0, 88 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(512, 0 - 568, 88), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2400 physicalDisplayWidth=1080 physicalDisplayHeight=2400 density={2.8125} cutoutSpec={M 0,0 M 0,11.43427858034597 a 9.899054752987353,9.899054752987353 0 1,0 0,19.79810950597471 a 9.899054752987353,9.899054752987353 0 1,0 0,-19.79810950597471 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=0, center=Point(0, 0)}, RoundedCorner{position=TopRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomLeft, radius=0, center=Point(0, 0)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2400), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 88) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2400 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {3 mType=ime mFrame=[0,0][0,0] mVisible=false mFlags=[]}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0000 mType=statusBars mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0005 mType=mandatorySystemGestures mFrame=[0,0][1080,122] mVisible=true mFlags=[]}, InsetsSource: {432a0006 mType=tappableElement mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {77940001 mType=navigationBars mFrame=[0,0][0,0] mVisible=true mFlags=[SUPPRESS_SCRIM]}, InsetsSource: {77940004 mType=systemGestures mFrame=[0,0][84,2400] mVisible=true mFlags=[]}, InsetsSource: {77940005 mType=mandatorySystemGestures mFrame=[0,2330][1080,2400] mVisible=true mFlags=[]}, InsetsSource: {77940006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags=[]}, InsetsSource: {77940024 mType=systemGestures mFrame=[996,0][1080,2400] mVisible=true mFlags=[]} }
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleResized, msg = 4 frames=ClientWindowFrames{frame=[0,0][1080,2400] display=[0,0][1080,2400] parentFrame=[0,0][0,0]} forceNextWindowRelayout=false displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false
+D/InputMethodManagerUtils(27873): startInputInner - Id : 0
+I/InputMethodManager(27873): startInputInner - IInputMethodManagerGlobalInvoker.startInputOrWindowGainedFocus
+I/InputMethodManager_LC(27873): showSoftInput(View,I)
+I/ImeTracker(27873): com.example.chat_app:74c049dd: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+I/InputMethodManager_LC(27873): ssi(): flags=0 view=com.example.chat_app reason = SHOW_SOFT_INPUT
+I/InputMethodManager_LC(27873): ssi() view is not EditText
+D/InputMethodManager(27873): showSoftInput() view=io.flutter.embedding.android.FlutterView{4495bef VFE...... .F...... 0,0-1080,2400 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+D/InputConnectionAdaptor(27873): The input method toggled cursor monitoring on
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Resizing android.view.ViewRootImpl@76718f6: frame = [0,0][1080,2400] reportDraw = false forceLayout = false syncSeqId = -1
+I/InsetsController(27873): onStateChanged: host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:7209, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400), mDisplayCutout=DisplayCutout{insets=Rect(0, 88 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(512, 0 - 568, 88), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2400 physicalDisplayWidth=1080 physicalDisplayHeight=2400 density={2.8125} cutoutSpec={M 0,0 M 0,11.43427858034597 a 9.899054752987353,9.899054752987353 0 1,0 0,19.79810950597471 a 9.899054752987353,9.899054752987353 0 1,0 0,-19.79810950597471 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=0, center=Point(0, 0)}, RoundedCorner{position=TopRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomLeft, radius=0, center=Point(0, 0)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2400), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 88) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2400 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {3 mType=ime mFrame=[0,1598][1080,2400] mVisible=false mFlags=[]}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0000 mType=statusBars mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0005 mType=mandatorySystemGestures mFrame=[0,0][1080,122] mVisible=true mFlags=[]}, InsetsSource: {432a0006 mType=tappableElement mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {77940001 mType=navigationBars mFrame=[0,0][0,0] mVisible=true mFlags=[SUPPRESS_SCRIM]}, InsetsSource: {77940004 mType=systemGestures mFrame=[0,0][84,2400] mVisible=true mFlags=[]}, InsetsSource: {77940005 mType=mandatorySystemGestures mFrame=[0,2330][1080,2400] mVisible=true mFlags=[]}, InsetsSource: {77940006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags=[]}, InsetsSource: {77940024 mType=systemGestures mFrame=[996,0][1080,2400] mVisible=true mFlags=[]} }
+I/InsetsSourceConsumer(27873): applyRequestedVisibilityToControl: visible=false, type=ime, host=com.example.chat_app/com.example.chat_app.MainActivity
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleResized, msg = 4 frames=ClientWindowFrames{frame=[0,0][1080,2400] display=[0,0][1080,2400] parentFrame=[0,0][0,0]} forceNextWindowRelayout=false displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Resizing android.view.ViewRootImpl@76718f6: frame = [0,0][1080,2400] reportDraw = false forceLayout = false syncSeqId = -1
+I/InsetsController(27873): onStateChanged: host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:7209, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400), mDisplayCutout=DisplayCutout{insets=Rect(0, 88 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(512, 0 - 568, 88), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2400 physicalDisplayWidth=1080 physicalDisplayHeight=2400 density={2.8125} cutoutSpec={M 0,0 M 0,11.43427858034597 a 9.899054752987353,9.899054752987353 0 1,0 0,19.79810950597471 a 9.899054752987353,9.899054752987353 0 1,0 0,-19.79810950597471 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=0, center=Point(0, 0)}, RoundedCorner{position=TopRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomLeft, radius=0, center=Point(0, 0)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2400), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 88) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2400 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {3 mType=ime mFrame=[0,1485][1080,2400] mVisible=false mFlags=[]}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0000 mType=statusBars mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0005 mType=mandatorySystemGestures mFrame=[0,0][1080,122] mVisible=true mFlags=[]}, InsetsSource: {432a0006 mType=tappableElement mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {77940001 mType=navigationBars mFrame=[0,0][0,0] mVisible=true mFlags=[SUPPRESS_SCRIM]}, InsetsSource: {77940004 mType=systemGestures mFrame=[0,0][84,2400] mVisible=true mFlags=[]}, InsetsSource: {77940005 mType=mandatorySystemGestures mFrame=[0,2330][1080,2400] mVisible=true mFlags=[]}, InsetsSource: {77940006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags=[]}, InsetsSource: {77940024 mType=systemGestures mFrame=[996,0][1080,2400] mVisible=true mFlags=[]} }
+I/InsetsSourceConsumer(27873): applyRequestedVisibilityToControl: visible=false, type=ime, host=com.example.chat_app/com.example.chat_app.MainActivity
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleResized, msg = 4 frames=ClientWindowFrames{frame=[0,0][1080,2400] display=[0,0][1080,2400] parentFrame=[0,0][0,0]} forceNextWindowRelayout=false displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false
+D/InsetsController(27873): show(ime(), fromIme=true)
+I/InsetsController(27873): setRequestedVisibleTypes: visible=true, mask=ime, host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.InsetsController.controlAnimationUnchecked:1445 android.view.InsetsController.applyAnimation:2005 android.view.InsetsController.applyAnimation:1968 android.view.InsetsController.show:1309 android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:7233 android.view.ViewRootImpl$ViewRootHandler.handleMessage:7166 android.os.Handler.dispatchMessage:106 android.os.Looper.loopOnce:230 android.os.Looper.loop:319 android.app.ActivityThread.main:8919
+I/InsetsController(27873): controlAnimationUncheckedInner: Added types=ime, animType=0, host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.InsetsController.controlAnimationUnchecked:1449 android.view.InsetsController.applyAnimation:2005 android.view.InsetsController.applyAnimation:1968
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882dffb0 mBlastBufferQueue=0xb4000073582ccc90 fn= 40 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): Resizing android.view.ViewRootImpl@76718f6: frame = [0,0][1080,2400] reportDraw = false forceLayout = false syncSeqId = -1
+I/InsetsController(27873): onStateChanged: host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:7209, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400), mDisplayCutout=DisplayCutout{insets=Rect(0, 88 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(512, 0 - 568, 88), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2400 physicalDisplayWidth=1080 physicalDisplayHeight=2400 density={2.8125} cutoutSpec={M 0,0 M 0,11.43427858034597 a 9.899054752987353,9.899054752987353 0 1,0 0,19.79810950597471 a 9.899054752987353,9.899054752987353 0 1,0 0,-19.79810950597471 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=0, center=Point(0, 0)}, RoundedCorner{position=TopRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomRight, radius=0, center=Point(0, 0)}, RoundedCorner{position=BottomLeft, radius=0, center=Point(0, 0)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2400), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 88) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2400 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {3 mType=ime mFrame=[0,1485][1080,2400] mVisible=true mFlags=[]}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0000 mType=statusBars mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {432a0005 mType=mandatorySystemGestures mFrame=[0,0][1080,122] mVisible=true mFlags=[]}, InsetsSource: {432a0006 mType=tappableElement mFrame=[0,0][1080,88] mVisible=true mFlags=[]}, InsetsSource: {77940001 mType=navigationBars mFrame=[0,0][0,0] mVisible=true mFlags=[SUPPRESS_SCRIM]}, InsetsSource: {77940004 mType=systemGestures mFrame=[0,0][84,2400] mVisible=true mFlags=[]}, InsetsSource: {77940005 mType=mandatorySystemGestures mFrame=[0,2330][1080,2400] mVisible=true mFlags=[]}, InsetsSource: {77940006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags=[]}, InsetsSource: {77940024 mType=systemGestures mFrame=[996,0][1080,2400] mVisible=true mFlags=[]} }
+I/ViewRootImpl@cdc42e5[MainActivity](27873): handleResized, msg = 4 frames=ClientWindowFrames{frame=[0,0][1080,2400] display=[0,0][1080,2400] parentFrame=[0,0][0,0]} forceNextWindowRelayout=false displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882dffb0 mBlastBufferQueue=0xb4000073582ccc90 fn= 41 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882ee810 mBlastBufferQueue=0xb4000073582ccc90 fn= 42 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882cef70 mBlastBufferQueue=0xb4000073582ccc90 fn= 43 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d0990 mBlastBufferQueue=0xb4000073582ccc90 fn= 44 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d0db0 mBlastBufferQueue=0xb4000073582ccc90 fn= 45 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882db570 mBlastBufferQueue=0xb4000073582ccc90 fn= 46 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882eafb0 mBlastBufferQueue=0xb4000073582ccc90 fn= 47 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882e1870 mBlastBufferQueue=0xb4000073582ccc90 fn= 48 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d0c50 mBlastBufferQueue=0xb4000073582ccc90 fn= 49 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882cdc30 mBlastBufferQueue=0xb4000073582ccc90 fn= 50 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882deb10 mBlastBufferQueue=0xb4000073582ccc90 fn= 51 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882cf650 mBlastBufferQueue=0xb4000073582ccc90 fn= 52 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882dc750 mBlastBufferQueue=0xb4000073582ccc90 fn= 53 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882e20b0 mBlastBufferQueue=0xb4000073582ccc90 fn= 54 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882ed8f0 mBlastBufferQueue=0xb4000073582ccc90 fn= 55 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d0db0 mBlastBufferQueue=0xb4000073582ccc90 fn= 56 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882cfa70 mBlastBufferQueue=0xb4000073582ccc90 fn= 57 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/InsetsController(27873): cancelAnimation: types=ime, animType=0, host=com.example.chat_app/com.example.chat_app.MainActivity, from=android.view.InsetsController.notifyFinished:1748 android.view.InsetsAnimationControlImpl.applyChangeInsets:312 android.view.InsetsController.lambda$new$3:918
+I/ImeTracker(27873): com.example.chat_app:74c049dd: onShown
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882e2d10 mBlastBufferQueue=0xb4000073582ccc90 fn= 58 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/ViewRootImpl@cdc42e5[MainActivity](27873): mWNT: t=0xb4000074882d9f70 mBlastBufferQueue=0xb4000073582ccc90 fn= 58 mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:96 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:69 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$SgowXC58rj3PR958kHUfRgLZmvE:0
+I/flutter (27873): [UI] ===== Send message triggered =====
+I/flutter (27873): [UI] Message text: "Second message"
+I/flutter (27873): [UI] Clearing text field and sending message to chatService...
+I/flutter (27873): [ChatService] ===== Sending message with chat template =====
+I/flutter (27873): [ChatService] User message: "Second message"
+I/flutter (27873): [ChatService] Template: auto-detected from model
+I/flutter (27873): [ChatService] Set _isGenerating = true
+I/flutter (27873): [ChatService] Added user message to conversation history
+I/flutter (27873): [ChatService] Current conversation length: 4 messages
+I/flutter (27873): [ChatService] Starting generation with parameters:
+I/flutter (27873): [ChatService]   - messages: 4
+I/flutter (27873): [ChatService]   - maxTokens: 512
+I/flutter (27873): [ChatService]   - temperature: 0.7
+I/flutter (27873): [ChatService]   - topP: 0.9
+I/flutter (27873): [ChatService] Calling generateChat()...
+I/flutter (27873): [ChatService] √ generateChat() returned stream
+I/flutter (27873): [ChatService] Setting up stream listener...
+I/flutter (27873): [ChatService] Starting to listen to stream with await for...
+I/flutter (27873): [ChatService] Waiting for first token (timeout: 10 seconds)...
+I/flutter (27873): [UI] ===== Send message complete =====
+I/flutter (27873): [UI] Generation state changed: true
+I/flutter (27873): [ChatService] ===== Stream completed (await for finished) =====
+I/flutter (27873): [ChatService] Current time: 2025-10-09 13:16:00.426818
+I/flutter (27873): [ChatService] Total tokens received: 0
+I/flutter (27873): [ChatService] Stream ever started: false
+I/flutter (27873): [ChatService] Assistant response length: 0 characters
+I/flutter (27873): [ChatService] ⚠⚠⚠ CRITICAL: Stream completed but no tokens were received!
+I/flutter (27873): [ChatService] ⚠ Native code may have failed silently
+I/flutter (27873): [ChatService] ⚠ Or the stream is not properly connected to native callbacks
+I/flutter (27873): [ChatService] ⚠ WARNING: Response buffer is empty!
+I/flutter (27873): [ChatService] Broadcasting state update: isGenerating = false
+I/flutter (27873): [ChatService] √√√ State updated - generation flag cleared
+I/flutter (27873): [ChatService] ===== Message processing complete =====
+I/flutter (27873): [ChatService] Final state: isGenerating = false
+I/flutter (27873): [UI] Generation state changed: false
+D/ChatTemplateManager(27873): Using template: chatml for formatting 4 messages
+I/LlamaJNI(27873): Tokenizing prompt: '<|im_start|>system
+I/LlamaJNI(27873): You are a helpful AI assistant. Be concise and friendly.<|im_end|>
+I/LlamaJNI(27873): <|im_start|>user
+I/LlamaJNI(27873): Hi<|im_end|>
+I/LlamaJNI(27873): <|im_start|>assistant
+I/LlamaJNI(27873): Hello! How can I assist you today?<|im_end|>
+I/LlamaJNI(27873): <|im_start|>user
+I/LlamaJNI(27873): Second message<|im_end|>
+I/LlamaJNI(27873): <|im_start|>assistant
+I/LlamaJNI(27873): ' (length: 247)
+I/LlamaJNI(27873): Vocab pointer: 0xb4000074083780d0, Model pointer: 0xb400007408374330
+I/LlamaJNI(27873): Token count: 47
+I/LlamaJNI(27873): Decoding batch starting at position 35 with 47 tokens
+I/LlamaJNI(27873): Context size: 1024, attempting to decode positions 35 to 81
+I/LlamaJNI(27873): ✅ Decode successful! Processed 47 tokens starting at position 35

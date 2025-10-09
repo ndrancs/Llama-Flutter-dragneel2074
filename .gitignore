@@ -31,7 +31,8 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-
+example/
+example_backup/
 # Symbolication related
 app.*.symbols
 
