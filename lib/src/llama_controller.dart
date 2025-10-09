@@ -5,7 +5,7 @@ import 'llama_api.dart';
 /// User-friendly controller for llama.cpp
 class LlamaController implements LlamaFlutterApi {
   final _api = LlamaHostApi();
-  final _tokenController = StreamController<String>.broadcast();
+  StreamController<String>? _tokenController;
   final _progressController = StreamController<double>.broadcast();
   
   bool _isLoading = false;
@@ -66,6 +66,7 @@ class LlamaController implements LlamaFlutterApi {
     }
 
     _isGenerating = true;
+    _tokenController = StreamController<String>.broadcast();
     
     // Start generation
     _api.generate(GenerateRequest(
@@ -87,7 +88,7 @@ class LlamaController implements LlamaFlutterApi {
       penalizeNewline: penalizeNewline,
     ));
 
-    return _tokenController.stream;
+    return _tokenController!.stream;
   }
 
   /// Stop current generation
@@ -101,7 +102,7 @@ class LlamaController implements LlamaFlutterApi {
   Future<void> dispose() async {
     await stop();
     await _api.dispose();
-    await _tokenController.close();
+    await _tokenController?.close();
     await _progressController.close();
   }
 
@@ -136,6 +137,7 @@ class LlamaController implements LlamaFlutterApi {
     }
 
     _isGenerating = true;
+    _tokenController = StreamController<String>.broadcast();
     
     // Start chat generation
     _api.generateChat(ChatRequest(
@@ -158,7 +160,7 @@ class LlamaController implements LlamaFlutterApi {
       penalizeNewline: penalizeNewline,
     ));
 
-    return _tokenController.stream;
+    return _tokenController!.stream;
   }
 
   /// Get loading progress stream (0.0 to 1.0)
@@ -170,22 +172,22 @@ class LlamaController implements LlamaFlutterApi {
   // Implementation of LlamaFlutterApi interface methods
   @override
   void onToken(String token) {
-    _tokenController.add(token);
+    _tokenController?.add(token);
   }
 
   @override
   void onDone() {
     _isGenerating = false;
-    _tokenController.close();
+    _tokenController?.close();
+    _tokenController = null;
   }
 
   @override
   void onError(String error) {
-    _tokenController.addError(Exception(error));
+    _tokenController?.addError(Exception(error));
   }
 
   @override
   void onLoadProgress(double progress) {
     _progressController.add(progress);
-  }
-}
+  }}
