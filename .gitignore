@@ -76,3 +76,6 @@ example/CHAT_TEMPLATE_INTEGRATION.md
 example/CONTEXT_AWARE_CHAT.md
 example/LOADING_LOCAL_MODEL.md
 example/UI_IMPROVEMENTS.md
+
+# Development documentation and notes
+docs/
