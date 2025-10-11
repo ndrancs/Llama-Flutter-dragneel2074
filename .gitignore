@@ -31,8 +31,10 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-example/
-example_backup/
+
+# For Flutter packages, ignore pubspec.lock (apps should commit it)
+pubspec.lock
+
 # Symbolication related
 app.*.symbols
 
@@ -51,5 +53,26 @@ app.*.map.json
 .cxx/
 .externalNativeBuild/
 
-# Backup files
+# Backup files and folders
 *.backup
+backup/
+example_backup/
+
+# Log files and folders
+logs/
+*.txt.log
+
+# AI assistant cache
+.qwen/
+.cursor/
+
+# Local configuration
+local.properties
+android/local.properties
+
+# Example app - development notes and temporary files
+example/*.txt
+example/CHAT_TEMPLATE_INTEGRATION.md
+example/CONTEXT_AWARE_CHAT.md
+example/LOADING_LOCAL_MODEL.md
+example/UI_IMPROVEMENTS.md
