@@ -1,8 +1,11 @@
-# create .pubignore with recommended lines
-@'
 example-app/app-release.apk
 *.apk
 **/build/
 **/android/.gradle/
 **/.gradle/
-.idea
+.idea/
+.vscode/
+.packages
+pubspec.lock
+*.iml
+.DS_Store
