@@ -26,6 +26,9 @@ The plugin includes a complete example chat application that demonstrates how to
 - **Advanced Parameters** - Full control over model parameters including Temperature Control, Top-P, Top-K, and more
 - **Auto Unload Model** - Automatic model unloading when inactivity is detected to preserve device resources
 
+An APK of the example app is available in the [example-app](example-app/) folder for immediate testing.
+
+
 ### Screenshots
 
 <div align="center">
@@ -48,10 +51,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  llama_flutter_android:
-    git:
-      url: https://github.com/dragneel2074/Llama-Flutter.git
-      ref: master
+  llama_flutter_android: latest
 ```
 
 ## Quick Start
@@ -187,6 +187,13 @@ The main interface for working with llama.cpp models.
 - `phi` - Phi format
 - `gemma` - Gemma format
 - `zephyr` - Zephyr format
+
+### Release Build Notes
+
+If the release app crashes, try these solutions in `android/app/build.gradle`:
+- Enable MaxHeap: Add `android:largeHeap="true"` to the application manifest
+- Disable minification and shrinking: Set `minifyEnabled false` and `shrinkResources false` in release build settings
+
 
 ## Contributing
 

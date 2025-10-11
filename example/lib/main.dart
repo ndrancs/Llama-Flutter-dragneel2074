@@ -1173,17 +1173,17 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Expanded(
-                        child: ElevatedButton.icon(
-                          onPressed: null, // Download button disabled
-                          icon: Icon(Icons.download, size: 18, color: Colors.grey),
-                          label: Text('Download (Disabled)', style: TextStyle(fontSize: 13, color: Colors.grey)),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.grey[200],
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                          ),
-                        ),
-                      ),
+                      // Expanded(
+                      //   child: ElevatedButton.icon(
+                      //     onPressed: null, // Download button disabled
+                      //     icon: Icon(Icons.download, size: 18, color: Colors.grey),
+                      //     label: Text('Download (Disabled)', style: TextStyle(fontSize: 13, color: Colors.grey)),
+                      //     style: ElevatedButton.styleFrom(
+                      //       backgroundColor: Colors.grey[200],
+                      //       padding: const EdgeInsets.symmetric(vertical: 12),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                   if (_chatService.hasModelPath) ...[
