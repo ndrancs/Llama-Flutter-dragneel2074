@@ -1,0 +1,8 @@
+# create .pubignore with recommended lines
+@'
+example-app/app-release.apk
+*.apk
+**/build/
+**/android/.gradle/
+**/.gradle/
+.idea
