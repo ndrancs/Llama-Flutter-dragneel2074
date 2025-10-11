@@ -186,7 +186,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 - [llama.cpp](https://github.com/ggerganov/llama.cpp) - The amazing inference engine
 - [Pigeon](https://pub.dev/packages/pigeon) - Type-safe platform communication
-- Inspired by research comparing fllama, flutter_gemma, and best practices
 
 ## Support
 
